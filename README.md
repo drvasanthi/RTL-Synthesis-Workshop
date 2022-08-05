@@ -1,1 +1,1 @@
-# RTL-Synthesis-Workshop
+# SKY130 - RTL-Synthesis-Workshop
