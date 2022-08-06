@@ -506,8 +506,7 @@ end
 endmodule
 </pre></code>
 
-
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/synt_seq4.PNG)
+![dff_const4](https://user-images.githubusercontent.com/67214592/183264508-493044fc-2a42-4223-89ab-3f6ed5d1841e.PNG)
 
 #### **b. Sequential optimization for unused outputs**
 
