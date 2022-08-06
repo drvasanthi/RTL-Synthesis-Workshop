@@ -37,8 +37,10 @@
 ## **1. Introduction to Verilog RTL Design and Synthesis**
 
 Register Transfer Logic (RTL) is used to capture logic in design phase of the integrated circuit design cycle. A logic synthesis tool converts an RTL description written in Hardware Description Language (Verilog/VHDL) to a gate-level description of the circuit. Placement and routing tools use the synthesis outputs to generate a physical layout. The following figure shows the flow of RTL synthesis.
+
 {: .alert .alert-info .text-justify}
 
-![image](https://user-images.githubusercontent.com/67214592/183248029-c05e7971-236a-4e03-8052-0f8bf3ec3b6e.png)
+![image](https://user-images.githubusercontent.com/67214592/183248599-fe5ac867-002b-479f-8729-0e6dd5ecbd36.png)
+
 
 
