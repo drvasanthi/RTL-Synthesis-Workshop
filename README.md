@@ -255,11 +255,11 @@ endmodule</code></pre>
 
 In this coding style Din is synchronized with clock whereas asynchronous reset pin is not synchronized.
 
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/DFF/DFF_asyncres_syncres.PNG)
+![dff_asynres_syncres](https://user-images.githubusercontent.com/67214592/183264277-45f25c5f-4d02-40af-af14-b0dac6375495.PNG)
 
 The following figure shows synthesis schematic of the design.
 
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/DFF/Synth_async_sync.PNG)
+![dff_asynres_syncres_synth](https://user-images.githubusercontent.com/67214592/183264283-0d368ec1-ad13-4c21-b6e1-c67bcb385b47.PNG)
 
 #### **d. Optimization**
 
