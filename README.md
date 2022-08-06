@@ -4,18 +4,18 @@
 
 1. [**Day 1**:  Introduction to Verilog RTL Design and Synthesis](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop/blob/main/README.md#1-introduction-to-verilog-rtl-design-and-synthesis)
 	1. [SKY130 RTL Introduction to Open-source Iverilog Simulator ](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#11-SKY130-rtl-introduction-to-open-source-iverilog-simulator)
-		1. [Design](https://github.com/drvasanthi/RTL-Design-and-Synthesis#i--iverilog)
-		2. [Testbench](https://github.com/drvasanthi/RTL-Design-and-Synthesis#ii-gtkwave)
-		3. [Simulator](https://github.com/drvasanthi/RTL-Design-and-Synthesis#iii--yosys)
+		1. [Design](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#i--design)
+		2. [Testbench](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#ii-testbench)
+		3. [Simulator](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#iii--simulator)
 	2. [SKY130 RTL Introduction to Yosys and Logic Synthesis ](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#11-SKY130-rtl-introduction-to-open-source-iverilog-simulator)
 
-2. [**Day 2**: Introduction to .lib, Heirarchial vs flat synthesis and Flop coding style](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#2-introduction-to-lib-heirarchial-vs-flat-synthesis-and-flop-coding-style)
-    1. [Introduction to .lib](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#21-introduction-to-lib)
-    2. [Heirarchial vs flat synthesis](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#22-heirarchial-vs-flat-synthesis)
-    3. [ Flop coding style](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#23-flop-coding-style)
-    	1. [Flop with asynchronous set/reset](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#flop-with-asynchronous-setreset)
-    	2. [Flop with synchronous set/reset](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#flop-with-synchronous-setreset)
-    	3. [Flop with asynchronous and synchronous set/reset](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#flop-with-synchronous-and-asynchronous-setreset)
+2. [**Day 2**: Introduction to timing libs, heirarchial vs flat synthesis and efficient flop coding style](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#2-introduction-to-lib-heirarchial-vs-flat-synthesis-and-flop-coding-style)
+    1. [Introduction to timing.libs](https://github.com/drvasnthi/SKY130-RTL-Synthesis-Workshop#21-introduction-to-lib)
+    2. [Heirarchial vs flat synthesis](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#22-heirarchial-vs-flat-synthesis)
+    3. [ Various Flop Coding Styles and Optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#23-flop-coding-style)
+    	1. [Flop with asynchronous set/reset](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#flop-with-asynchronous-setreset)
+    	2. [Flop with synchronous set/reset](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#flop-with-synchronous-setreset)
+    	3. [Flop with asynchronous and synchronous set/reset](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#flop-with-synchronous-and-asynchronous-setreset)
     	
 3. [**Day 3**:  Introduction to optimisation](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#3-introduction-to-optimisation)
 	1. [Optimization of combinational circuits](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#31-optimization-of-combinational-circuits)
@@ -101,6 +101,72 @@ To Verify the Synthesis:
 |`abc -liberty ../my_lib/lib/sy130_fd_sc_hd__tt_025C_1V80.lib`|To generate gate level netlist|
 |`write_verilog -noattr  verilogfilename_netlist.v`|To write netlist into a verilog file.|
 |`show`|To display gate level schematic of the design|
+
+## **2. Introduction to timing libs, heirarchial vs flat synthesis and efficient flop coding styles**
+
+### **i. Introduction to timing.libs**
+ 
+***.lib*** stands for Liberty Timing File. 
+The .lib file is an ASCII representation of the timing and power parameters associated with any cell in a particular semiconductor technology.It consists of timing and power parameters are obtained by simulating the cells under a variety of conditions (PVT) and the data is represented in the .lib format
+The .lib file contains timing models and data to calculate
+- I/O delay paths
+- Timing check values
+- Interconnect delays
+
+We use an open source .lib file from Google Skywater sky130_fd_sc_hd__tt_025C_1v80.lib.
+![image](https://user-images.githubusercontent.com/67214592/183252687-ce9eb8b9-5cd0-47f6-879d-2511b13dd2e7.png)
+
+The naming convention is as follows
+
+|**abbrevation**|**Description**|
+| :-: | :-: |
+|sky130|Represents technology node 130nm|
+|fd|Foundary Dependent|
+|sc|Standard cell|
+|hd|High Desnsity|
+|tt|Typical Process Corner|
+|025|25c Temperature|
+|1v80|1.8V|
+
+![image](https://user-images.githubusercontent.com/67214592/183252705-f56fc741-a9e1-4e9d-87f8-fd3326f6fcd7.png)
+
+The above clip from .lib files shows the information of Timing, power area and other details of standard cell AND gate.
+
+### **ii. Heirarchial vs flat synthesis**
+
+**Hierarchial Synthesis**
+
+Submodule level synthesis
+
+In a design with multiple instances we can use this to synthesize once and replicate it many times and stich together to obtain the netlist file.
+On the other hand big designs can be broken down synthesised and merged later into a single netlist.
+
+Verilog code of Half Adder is shown below. It consists of a heirarchial structure.
+
+<pre><code>
+module sub_module2 (input a, input b, output y);
+assign y = a | b;
+endmodule
+module sub_module1 (input a, input b, output y);
+assign y = a&b;
+endmodule
+module multiple_modules (input a, input b, input c , output y);
+	wire net1;
+	sub_module1 u1(.a(a),.b(b),.y(net1));  //net1 = a&b
+	sub_module2 u2(.a(net1),.b(c),.y(y));  //y = net1|c ,ie y = a&b + c;
+endmodule
+</pre></code>
+
+The following fig shows the heirarchy of the multiple modules.
+![image](https://user-images.githubusercontent.com/67214592/183252872-7e980846-3339-453e-8071-9132dd45c3ca.png)
+
+**Flatten Synthesis**
+
+
+`flatten` is the command to flatten out the heirarchy and this is the resultant structure after removing heirarchy of the modules.
+
+![image](https://user-images.githubusercontent.com/67214592/183252920-cbc427f7-4b50-4aeb-b379-9db203e6d678.png)
+
 
 
 
