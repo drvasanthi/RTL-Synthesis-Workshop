@@ -508,6 +508,8 @@ endmodule
 
 ![dff_const4](https://user-images.githubusercontent.com/67214592/183264508-493044fc-2a42-4223-89ab-3f6ed5d1841e.PNG)
 
+![dff_const4_synth](https://user-images.githubusercontent.com/67214592/183264572-6b605dc7-f571-48e6-a32e-7dd99bb871b5.PNG)
+
 #### **b. Sequential optimization for unused outputs**
 
 ![image](https://user-images.githubusercontent.com/67214592/183262493-4c5e59b4-2c2a-4860-a036-eb5580538e5f.png)
