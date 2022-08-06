@@ -922,10 +922,6 @@ The following figure shows the output of simulation.
 
 ![image](https://user-images.githubusercontent.com/67214592/183260651-a3f2f096-9f9b-4f51-9cf4-2fcd06fea458.png)
 		
-The following figure shows the synthesised output in which FA modules are instantiated.
-		
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D5/rca_synth.PNG)
-		
 		
 
 ## **Contributors**
