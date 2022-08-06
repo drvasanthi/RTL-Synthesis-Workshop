@@ -370,7 +370,7 @@ module opt_check4 (input a , input b , input c , output y);
 
 The synthesis of the above design shows the XNOR gate and hence results in an optimization.
 
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Synt_opt_check4.PNG)
+![opt_check4_synth](https://user-images.githubusercontent.com/67214592/183264347-d228e372-1d6d-4927-ad96-015d5a2984a2.PNG)
 
 ### **ii. Sequential Logic Optimization**
 
