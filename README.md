@@ -537,4 +537,149 @@ As shown in the above figure, only one DFF is utilized in the design in contrast
 
 ## **4. GLS, Blocking v/s Non-Blocking, and Synthesis-Simulation Mismatch**
 
+### **i. GLS - Gate level simulation**  
+* GLS stands for Gate level simulation.   
+* It is used to verify the logical correctness of design after synthesis.  
+* It also ensures the timing of the design is met. The GLS needs to be run with delay annotation.
+
+The below figure shows the GLS using iverilog
+
+![image](https://user-images.githubusercontent.com/67214592/183258753-a445291c-e29e-40a8-b44d-aef41951ea9e.png)
+
+Let us consider an example, the following code shows logic of ternary operator.
+<pre><code>
+
+module ternary_operator_mux (input i0 , input i1 , input sel , output y);
+	assign y = sel?i1:i0;
+	endmodule
+	
+</pre></code>
+
+The following commands are executed to simulate the design
+
+```
+iverilog ternary_operator_mux.v tb_ternary_operator_mux.v 
+./a.out
+gtkwave tb_ternary_operator_mux.vcd 
+```
+The following image shows the simulation of ternary operator. It can observed in the waveform window, the logic of ternary operator is same as 2:1 mux.
+
+![image](https://user-images.githubusercontent.com/67214592/183258803-c604918c-b111-4087-8be0-7276c0ee4386.png)
+
+Now, let us perform Gate level simulation of ternary operator. 
+
+The following code is used to generate Gate Level Netlist.
+
+```
+read_liberty -lib ./my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+read_verilog ./verilog_files/ternary_operator_mux.v 
+synth -top ternary_operator_mux 
+show
+history
+abc -liberty ./my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+show
+write_verilog -noattr ternary_mux_netlist.v
+```
+The following figure shows the synthesis of ternary mux
+
+![image](https://user-images.githubusercontent.com/67214592/183258858-6ca9e436-98a2-4ff1-a72e-9c4825c961ab.png)
+
+```
+iverilog ./my_lib/verilog_model/primitives.v ./my_lib/verilog_model/sky130_fd_sc_hd.v ternary_mux_netlist.v ./verilog_files/tb_ternary_operator_mux.v
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+```
+
+The above code is used simulated gate level netlist by importing primitives library into verilog.
+The resultant waveform is shown below. It can be observed Gate level simulation matches with RTL simulation.
+
+![image](https://user-images.githubusercontent.com/67214592/183258935-15e5d711-34e3-4a08-9236-7aec6fa10c85.png)
+
+### **ii. Synthesis Simulation Mismatch**
+
+ Synthesis Simulation Mismatch(SSM) is mainly due to two reasons.
+ - Missing sensititivity list
+ - Blocking and non blocking statements
+ 
+**a. Missing Sensitivity list**
+
+Let us look into the following verilog code example
+```
+
+module bad_mux (input i0 , input i1 , input sel , output reg y);
+always @ (sel)
+begin
+	if(sel)
+		y <= i1;
+	else 
+		y <= i0;
+end
+endmodule
+```
+
+In the above code, sensitivity list includes only the select line, hence output is not updated even though the inputs changes. This is observed in the simulation waveform below.
+
+![image](https://user-images.githubusercontent.com/67214592/183259093-a75f1bb2-9017-4883-af48-e79c5d458cf0.png)
+
+Now, let us look into gate level simulation of the above design.
+The following commands are used to generate gate level netlist.
+```
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+read_verilog bad_mux.v 
+synth -top bad_mux 
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+write_verilog bad_mux_netlist.v
+```
+The following execution of commands is performed for GLS 
+
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_mux_netlist.v tb_bad_mux.v
+   ./a.out
+   gtkwave tb_bad_mux.vcd
+```
+The GLS simulation waveform is shown below.
+![image](https://user-images.githubusercontent.com/67214592/183259143-a0e2bceb-04e0-4688-9ead-a834cabd8b08.png)
+
+From the above synthesis waveform, there is a mismatch synthesis and simulation waveform. This is mainly due to signals in the sensitivity list.
+
+ **b. Blocking and Non Blocking statements**
+
+In a verilog code, blocking statements are in sequential order, where as non blocking statements are executed in concurrent fashion.
+
+* Inside always block  
+ `= Blocking`  
+     * Executes the statement in the order it is written.  
+     * So the first statement is evaluated before the second statement.  
+  `<= Non-Blocking`  
+     * Executes all RHS when always block is entered and assign to LHS.  
+     * Parallel Evaluation.  
+     
+let us consider the follwoing verilog example code.
+```
+module blocking_caveat (input a , input b , input  c, output reg d); 
+reg x;
+always @ (*)
+begin
+	d = x & c;
+	x = a | b;
+end
+endmodule
+
+```
+
+In the above example the output d is evaluated first and x is evaluated next. Therefore the output d is evaluated based on the previous value of x. This creates a mismatch between Synthesis and Simulation output.
+
+The following figure shows the simulation output of above code. As it can be seen in the output waveform, the output y is evaluated based on the previous values of a and b.
+
+![image](https://user-images.githubusercontent.com/67214592/183259330-8ce21bfe-25de-44b0-aeb4-891b8f8d0f8c.png)
+
+![image](https://user-images.githubusercontent.com/67214592/183259400-91bbebaa-e313-4ab0-bf8f-73d1582a7861.png)
+
+The following figure shows the simulation output based on the Gate level netlist. The waveform shows the correct execution of the output as compared to the previous output.
+
+![image](https://user-images.githubusercontent.com/67214592/183259420-e5459f75-986e-403e-a9b3-ac17afb12c3a.png)
+
+
+
+
 
