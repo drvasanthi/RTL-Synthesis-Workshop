@@ -1,6 +1,6 @@
-<h1 align="center">SKY130 - RTL-Synthesis-Workshop</h1>
+<h1 align="center">SKY130 RTL Design and Synthesis using IVerilog</h1>
 
-## TABLE OF CONTENTS
+## TABLE OF CONTENT
 
 1. [**Day 1**:  Introduction to Verilog RTL Design and Synthesis](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop/blob/main/README.md#1-introduction-to-verilog-rtl-design-and-synthesis)
 	1. [SKY130 RTL Introduction to Open-source Iverilog Simulator ](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#11-SKY130-rtl-introduction-to-open-source-iverilog-simulator)
@@ -9,20 +9,21 @@
 		3. [Simulator](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#iii--simulator)
 	2. [SKY130 RTL Introduction to Yosys and Logic Synthesis ](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#11-SKY130-rtl-introduction-to-open-source-iverilog-simulator)
 
-2. [**Day 2**: Introduction to timing libs, heirarchial vs flat synthesis and efficient flop coding style](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#2-introduction-to-lib-heirarchial-vs-flat-synthesis-and-flop-coding-style)
+2. [**Day 2**: Introduction to timing libs, heirarchial vs flat synthesis and efficient flop coding style](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#2-introduction-to-timing-lib-heirarchial-vs-flat-synthesis-and-efficient-flop-coding-style)
     1. [Introduction to timing.libs](https://github.com/drvasnthi/SKY130-RTL-Synthesis-Workshop#21-introduction-to-lib)
     2. [Heirarchial vs flat synthesis](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#22-heirarchial-vs-flat-synthesis)
     3. [ Various Flop Coding Styles and Optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#23-flop-coding-style)
     	1. [Flop with asynchronous set/reset](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#flop-with-asynchronous-setreset)
     	2. [Flop with synchronous set/reset](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#flop-with-synchronous-setreset)
     	3. [Flop with asynchronous and synchronous set/reset](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#flop-with-synchronous-and-asynchronous-setreset)
+    	4. [Optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#optimization) 
     	
-3. [**Day 3**:  Introduction to optimisation](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#3-introduction-to-optimisation)
-	1. [Optimization of combinational circuits](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#31-optimization-of-combinational-circuits)
-		1. [Constant propagation](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#constant-propagation)
-		2. [Optimization of boolean logic](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#optimization-of-boolean-logic)
-	2.  [Optimization of sequential circuits](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#32-optimization-of-sequential-circuits)
-		1. [Optimization Sequential circuit using constant propagation](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#optimization-sequential-circuit-using-constant-propagation)\
+3. [**Day 3**:  Combinational and Sequential Optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#3-combinational-and-sequential-optimization)
+	1. [Combinational Logic Optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#31-optimization-of-combinational-circuits)
+		1. [Constant propagation](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#constant-propagation)
+		2. [Boolean logic optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#optimization-of-boolean-logic)
+	2.  [Sequential Logic Optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#32-optimization-of-sequential-circuits)
+		1. [Optimization Sequential circuit using constant propagation](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#optimization-sequential-circuit-using-constant-propagation)\
 
 4. [**Day 4**: GLS, blocking v/s non-blocking, and synthesis-simulation mismatch](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#41-gls---gate-level-simulation)
 	1. [4.1 GLS - Gate Level Simulation ](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#41-gls---gate-level-simulation)
@@ -162,12 +163,199 @@ The following fig shows the heirarchy of the multiple modules.
 
 **Flatten Synthesis**
 
-
 `flatten` is the command to flatten out the heirarchy and this is the resultant structure after removing heirarchy of the modules.
 
 ![image](https://user-images.githubusercontent.com/67214592/183252920-cbc427f7-4b50-4aeb-b379-9db203e6d678.png)
 
+### **iii. Various Flop Coding Styles and Optimization**  
+* Glitches in combinational circuits are unwanted transient output states. They are caused when the inputs are at intermediate state before reaching their final state. 
+* Flops are introduced between the combinational circuits to avoid glitches in the circuit.
+
+There are mainly three flop coding styles which are -
+
+- Flop with asynchronous set/reset
+- Flop with synchronous set/reset
+- Flop with asynchronous and synchronous set/reset
+
+#### **a. Flop with asynchronous set/reset**
+
+The verilog code is given by the following and it is importnant to observe the inputs which are present inside always statement. 
+
+ <pre><code>module dff_asyncres ( input clk ,  input async_reset , input d , output reg q );
+always @ (posedge clk , posedge async_reset)
+begin
+    if(async_reset)
+      q <= 1'b0;
+   else
+     q <= d;
+end </code></pre>
+	      
+In this coding style asynchronous set/reset pin is not synchronized with the clock and it has got highest priority as compared to all other inputs. 
+As shown in the following figure when reset is 1, irrespective of all other inputs output becomes zero.
+
+![image](https://user-images.githubusercontent.com/67214592/183254231-d8de95dd-e2a0-4420-97c1-bd8d032e7c30.png)
+
+As shown in the following figure when set is 1,	      
+	     
+![image](https://user-images.githubusercontent.com/67214592/183254410-9f5ab9d7-0178-4d4f-a822-86ef3d3ed593.png)
+
+The following figure shows schematic of Flop with asynchronous reset. 
+
+![image](https://user-images.githubusercontent.com/67214592/183254689-e06b7736-71fe-422b-9738-1f45bfd99535.png)
+	      
+The following figure shows schematic of Flop with asynchronous set. 
+	      
+![image](https://user-images.githubusercontent.com/67214592/183254785-2ae1ab4d-7c44-418b-848a-7a83e20406a3.png)
+
+#### **b. Flop with synchronous set/reset**  
+	      
+The verilog code is given by the following and it is importnant to observe the inputs which are present inside always statement. 
+	      
+ <pre><code>module dff_syncres ( input clk , input async_reset , input sync_reset , input d , output reg q );
+always @ (posedge clk )
+begin
+if (sync_reset)
+      q <= 1'b0;
+else
+      q <= d;
+end
+endmodule</code></pre>
+	     
+In this coding style asynchronous set/reset pin is synchronized with the clock and clock has got highest priority as compared to all other inputs. 
+	      
+As shown in the following figure when reset is 1, irrespective of all other inputs output becomes zero during the next clock edge.
+	      
+![image](https://user-images.githubusercontent.com/67214592/183254576-80138511-432c-426d-b074-b85126e2af35.png)	      
+	      
+The following figure shows schematic of Flop with synchronous reset. 
+	      
+![image](https://user-images.githubusercontent.com/67214592/183254869-228f9c5d-94f2-44db-8b3f-21d0108af92f.png)
+	      
+#### **c. Flop with synchronous and asynchronous set/reset**
+
+The verilog code is given by the following and it is importnant to observe the inputs which are present inside always statement.
+
+<pre><code>module dff\_asyncres\_syncres ( input clk , input async\_reset , input sync\_reset , input d , output reg q );
+always @ (posedge clk , posedge async\_reset)
+begin
+   if(async\_reset)
+      q <= 1'b0;
+  else if (sync\_reset)
+      q <= 1'b0;
+  else	
+      q <= d;
+end
+endmodule</code></pre>
+
+In this coding style Din is synchronized with clock whereas asynchronous reset pin is not synchronized.
+
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/DFF/DFF_asyncres_syncres.PNG)
+
+The following figure shows synthesis schematic of the design.
+
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/DFF/Synth_async_sync.PNG)
+
+#### **d. Optimization**
+
+The verilog code is given by the following and it is importnant to observe the inputs which are present inside the statement.  
+	* In this hardware/standard cells is not necessary.
+
+<pre><code>module mul2 (input [2:0] a, output [3:0] y);
+   assign y = a * 2;
+ endmodule
+ 
+ The following figure shows synthesis schematic of the design.
+ 
+ ![image](https://user-images.githubusercontent.com/67214592/183255244-f6f73d25-3aa4-4584-a5f0-2b03c301a188.png)
+ 
+ The verilog code is given by the following and it is importnant to observe the inputs which are present inside the statement.  
+
+<pre><code>module mul2 (input [2:0] a, output [5:0] y);
+   assign y = a * 9;
+ endmodule
+ 
+ The following figure shows synthesis schematic of the design.
+ 
+ ![image](https://user-images.githubusercontent.com/67214592/183255305-ad9db11d-064f-4337-a783-10b3a8719452.png)
 
 
+## **3. Combinational and Sequential Optimization**
+Optimization in VLSI digital circuits is required in order to design an efficient circuit in terms of area and power.
 
+### **i. Combinational Logic Optimization**
+ In combinational circuit design optimization is done at two levels.
+- Constant propagation
+- Boolean logic optimization
+#### **a. Constant propagation**
+Let consider an the following combinational circuit: 
+
+![image](https://user-images.githubusercontent.com/67214592/183255894-5ef8704b-6638-4ba8-a9a3-236ab1955dca.png)
+
+In the above circuit, if the input A=0, then the output is complement of C irrespective of the input B. Hence the entire circuit can be replaced by an inverter.
+Let us look into somemore examples.
+
+#### **b. Boolean logic optimization**</p>
+**Opt_Example 1:**
+As an example, consider a 2:1 mux. A 2:1 mux requires two AND gates, one OR gate, and one inverter to be implemented. As a result, a total of four logic gates are required. 
+
+Let us look into how optimization is performed with the following inputs.
+
+![image](https://user-images.githubusercontent.com/67214592/183255910-f8331ea8-865f-4f7a-ab6d-948506aa4999.png)
+
+<pre><code>
+module opt_check (input a , input b , output y);
+	assign y = a?b:0;
+endmodule
+</code></pre>
+
+The synthesis of the above design shows that, the 2:1 mux is replaced with an OR gate and hence results in an optimization.
+
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/opt_Check.PNG)
+
+**Opt_Example 2:**
+
+Let us consider the following mux based logic.
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Opt_check2.PNG)
+
+In the above logic circuit, the optimization leads to OR gate.
+
+<pre><code>
+module opt_check2 (input a , input b , output y);
+	assign y = a?1:b;
+endmodule
+</code></pre>
+
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Synt_opt_check2.PNG)
+
+**Opt_Example 3:**
+
+In the following example, two mux are connected to form a logic, and it requires total 8 logic gates to implement the mux.
+
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Opt_check3.PNG)
+
+In the above logic circuit, the optimization leads to three inputs AND gate.
+
+<pre><code>
+module opt_check3 (input a , input b, input c , output y);
+	assign y = a?(c?b:0):0;
+endmodule
+</code></pre>
+
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Synt_opt_check3.PNG)
+
+**Opt_Example 4:**
+
+In this example, two mux and two gates are connected to form a logic.
+
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/opt_check4.PNG)
+
+In the above logic circuit, the optimization leads top XNOR gate
+
+<pre><code>
+module opt_check4 (input a , input b , input c , output y);
+ 	assign y = a?(b?(a & c ):c):(!c);
+ endmodule
+</code></pre>
+
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Synt_opt_check4.PNG)
 
