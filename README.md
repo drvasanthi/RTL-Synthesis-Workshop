@@ -294,7 +294,7 @@ Let consider an the following combinational circuit:
 In the above circuit, if the input A=0, then the output is complement of C irrespective of the input B. Hence the entire circuit can be replaced by an inverter.
 Let us look into somemore examples.
 
-#### **b. Boolean logic optimization**</p>
+#### **b. Boolean logic optimization**
 **Opt_Example 1:**
 As an example, consider a 2:1 mux. A 2:1 mux requires two AND gates, one OR gate, and one inverter to be implemented. As a result, a total of four logic gates are required. 
 
