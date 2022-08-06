@@ -889,7 +889,7 @@ Below figure shows the RTL simulation.
 
 The figure below shows synthesized output of the above code.
 
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/mux_generate.PNG)
+![mux_generator_synth](https://user-images.githubusercontent.com/67214592/183264654-15a77aeb-cbe9-4aa6-a9cc-4618241b02ec.PNG)
 
 **b. for generate loop constructs**
 
