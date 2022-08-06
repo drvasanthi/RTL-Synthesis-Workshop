@@ -295,7 +295,7 @@ Optimization in VLSI digital circuits is required in order to design an efficien
 #### **a. Constant propagation**
 Let consider an the following combinational circuit: 
 
-![image](https://user-images.githubusercontent.com/67214592/183255894-5ef8704b-6638-4ba8-a9a3-236ab1955dca.png)
+![image](https://user-images.githubusercontent.com/67214592/183262215-b0ab2e1c-5a11-4d49-bb1f-e26ea6cda8fc.png)
 
 In the above circuit, if the input A=0, then the output is complement of C irrespective of the input B. Hence the entire circuit can be replaced by an inverter.
 Let us look into somemore examples.
@@ -306,7 +306,7 @@ As an example, consider a 2:1 mux. A 2:1 mux requires two AND gates, one OR gate
 
 Let us look into how optimization is performed with the following inputs.
 
-![image](https://user-images.githubusercontent.com/67214592/183255910-f8331ea8-865f-4f7a-ab6d-948506aa4999.png)
+![image](https://user-images.githubusercontent.com/67214592/183262239-8153b1a6-55cc-4b83-954e-26034f557006.png)
 
 <pre><code>
 module opt_check (input a , input b , output y);
@@ -322,7 +322,7 @@ The synthesis of the above design shows that, the 2:1 mux is replaced with an AN
 
 Let us consider the following mux based logic.
 
-![image](https://user-images.githubusercontent.com/67214592/183256870-f016396e-ce8b-4270-b857-c5fcf38a4dff.png)
+![image](https://user-images.githubusercontent.com/67214592/183262258-481cf420-9377-4849-b1c6-799ea9007fde.png)
 
 In the above logic circuit, the optimization leads to OR gate.
 
@@ -340,7 +340,7 @@ The synthesis of the above design shows that, the 2:1 mux is replaced with an OR
 
 In the following example, two mux are connected to form a logic, and it requires total 8 logic gates to implement the mux.
 
-![image](https://user-images.githubusercontent.com/67214592/183256985-3b08a82e-e748-40a6-bd21-decc2abeccc6.png)
+![image](https://user-images.githubusercontent.com/67214592/183262289-cf9e3e46-3f1d-4fa3-8bb7-10d281c39850.png)
 
 In the above logic circuit, the optimization leads to three inputs AND gate.
 
@@ -358,7 +358,7 @@ The synthesis of the above design shows that, the 2:1 mux is replaced with an 3-
 
 In this example, two mux and two gates are connected to form a logic.
 
-![image](https://user-images.githubusercontent.com/67214592/183257196-770f9867-308a-4210-a560-29e968c0fc0d.png)
+![image](https://user-images.githubusercontent.com/67214592/183262316-e8522aea-6e16-4c92-86a2-23ecf6cb1f3c.png)
 
 In the above logic circuit, the optimization leads top XNOR gate
 
@@ -387,7 +387,7 @@ We will restrict our discussion to sequential logic optimization in constant pro
 
 Consider a sequential circuit shown below
 
-![image](https://user-images.githubusercontent.com/67214592/183257792-9b6c5148-89c5-4e28-9669-6bc9e6348a92.png)
+![image](https://user-images.githubusercontent.com/67214592/183262339-4879f56f-43d0-4e79-8ff7-c583c45bfa8b.png)
 
 In the above circuit, if asynchronous reset is enabled then Q = 0 irrespective of clock, else Q =1 since D input is set to 1. 
 
@@ -415,7 +415,7 @@ The following figure shows the synthesis of the above circuit. As it can be seen
 
 Consider an another sequential circuit shown below
 
-![image](https://user-images.githubusercontent.com/67214592/183258107-e7c8e4a0-d7b8-4c25-9911-259acdc1d17b.png)
+![image](https://user-images.githubusercontent.com/67214592/183262384-4f0c4789-ff30-42e7-98d0-7bac64d9efea.png)
 
 In the above circuit, if the asynchronous set is enabled then Q = 1 and the output remains at the same state, since D input is set to 1. The same can be verified in the simulated waveform shown below along with verilog.
 
@@ -444,7 +444,7 @@ The following figure shows the synthesis of the above circuit. As it can be seen
 
 Consider an another sequential circuit shown below
 
-![image](https://user-images.githubusercontent.com/67214592/183258165-c674ddb1-ef55-4d24-8e5d-4f0855d7a041.png)
+![image](https://user-images.githubusercontent.com/67214592/183262430-6c74e1ec-2858-4396-8a0c-5ffe43a9fb62.png)
 
 The above circuit consists of two asynchronous set and reset DFF. Hence the optimization can't be done in the above design. 
 
@@ -478,8 +478,7 @@ end
 
 In the design sequential example - 3, the optimization can be achieved by replacing asynchronous **reset DFF** by asynchronous **set DFF** which is as shown in the below example.
 
-![image](https://user-images.githubusercontent.com/67214592/183258301-074870be-4266-4d2f-a66e-3900d1030c0e.png)
-
+![image](https://user-images.githubusercontent.com/67214592/183262456-db16bfd5-c102-424d-976e-d38ca71ed969.png)
 
 The above circuit consists of two asynchronous set DFF's. Hence the output remains at logic irreseprctive of clock. Hence optimization in the above design results in a buffer. 
 
@@ -511,6 +510,8 @@ endmodule
 ![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/synt_seq4.PNG)
 
 #### **b. Sequential optimization for unused outputs**
+
+![image](https://user-images.githubusercontent.com/67214592/183262493-4c5e59b4-2c2a-4860-a036-eb5580538e5f.png)
 
 Let us consider following verilog code of an up counter.
 
@@ -711,7 +712,7 @@ endif
 
 The below figure shows the equivalent logic circuit using mux
 
-![image](https://user-images.githubusercontent.com/67214592/183259639-f9ec303c-ca66-498e-9f2c-f636a6245719.png)
+![image](https://user-images.githubusercontent.com/67214592/183262548-b43ce0fd-f1e6-4289-bc0a-342cc7c5de19.png)
 
 Now, let us consider the cases where if constructs are not written properly.
 
