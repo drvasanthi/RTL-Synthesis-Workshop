@@ -30,12 +30,12 @@
 	1. [GLS - Gate Level Simulation ](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#41-gls---gate-level-simulation)
 	2. [Synthesis-Simulation Mismatch](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#42-synthesis-simulation-mismatch)
 
-5. [**Day 5**: If Case Statements and for loop & for generate statements](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#5-if-case-statements-and-for-loop--for-generate-statements)
-	1. [IF statements](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#51-if-statement) 
-	2. [CASE statements](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#52-case-statement)
-	3. [looping constructs](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#53-looping-constructs)
+5. [**Day 5**: If, Case, For loop & For generate Statements](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#5-if-case-for-loop-for-generate-statements)
+	1. [IF statements](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#51-if-statement) 
+	2. [CASE statements](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#52-case-statement)
+	3. [looping constructs](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#53-looping-constructs)
 
-[**Acknowledgement**](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/README.md#acknowledgement)
+[**Acknowledgement**]
 
 
 ## **1. Introduction to Verilog RTL Design and Synthesis**
@@ -160,6 +160,7 @@ endmodule
 </pre></code>
 
 The following fig shows the heirarchy of the multiple modules.
+
 ![image](https://user-images.githubusercontent.com/67214592/183256658-f052a2e7-60a3-4fd1-a11b-9673eab81f60.png)
 
 **Flatten Synthesis**
@@ -678,6 +679,172 @@ The following figure shows the simulation output of above code. As it can be see
 The following figure shows the simulation output based on the Gate level netlist. The waveform shows the correct execution of the output as compared to the previous output.
 
 ![image](https://user-images.githubusercontent.com/67214592/183259420-e5459f75-986e-403e-a9b3-ac17afb12c3a.png)
+
+## **5. If, Case, For loop & For generate Statements**
+
+### **i. If Statement**
+
+If statements are the highest priority conditional statements. They invoke MUX when written properly else they `Inferred Latches` (incomplete if statement).
+
+Consider an example code below.
+```
+if(cond1)
+	begin 
+		state1
+		
+	end
+elseif(cond2)
+	
+	begin
+		state2
+	end
+else
+	begin 
+		state2
+	end
+endif
+```
+
+The below figure shows the equivalent logic circuit using mux
+
+![image](https://user-images.githubusercontent.com/67214592/183259639-f9ec303c-ca66-498e-9f2c-f636a6245719.png)
+
+Now, let us consider the cases where if constructs are not written properly.
+
+**Example1-incomplete_if:**
+
+Consider the below verilog code.
+
+```
+module incomp_if (input i0 , input i1 , input i2 , output reg y);
+always @ (*)
+begin
+	if(i0)
+		y <= i1;
+end
+endmodule
+```
+In the above example if structure is incomplete. Let us check its waveform and synthesized output.
+
+As shown in the waveform below, output retains its previous state if i0=0, hence it acts like a latch.
+
+![image](https://user-images.githubusercontent.com/67214592/183259704-068f3ca3-40e4-46bc-a573-ac86c35768fe.png)
+
+Synthesized output shows D latch connected between input and output.
+
+![image](https://user-images.githubusercontent.com/67214592/183259729-eee734cc-6b7b-4d0a-9c78-c63bbf874f16.png)
+
+
+**Example2-incomplete_if2:**
+
+Consider a verilog code shown below.
+
+```
+module incomp_if2 (input i0 , input i1 , input i2 , input i3, output reg y);
+always @ (*)
+begin
+	if(i0)
+		y <= i1;
+	else if (i2)
+		y <= i3;
+end
+endmodule
+
+```
+
+Figure below shows the simulated waveform and synthesis results of the above code. In this we can observe when both I0 and I2 are zero, the output remains at either 0 or 1.
+
+![image](https://user-images.githubusercontent.com/67214592/183259836-b6eeeb2b-eeb6-4a97-9321-1c3cfe89d7f2.png)
+
+Synthesized output shows D latch with combinational logic and OR gate
+
+![image](https://user-images.githubusercontent.com/67214592/183259886-8e8f3ff4-3f23-44d5-bdf0-7742841210d6.png)
+
+### **ii. CASE Statement**
+
+Case statements are mapped to mux when they are synthesized. In the case statements also infers latches when its not written properly.
+
+Let us try to understand this by taking an example of a complete case statement and an incomplete case statement.
+
+**Example1-incomp_case:**
+
+Given below is the code of an incomplete case statement example which will result in an inferred latch.
+
+```
+module incomp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
+always @ (*)
+begin
+	case(sel)
+		2'b00 : y = i0;
+		2'b01 : y = i1;
+	endcase
+end
+endmodule
+```
+
+As shown in the above code, only two conditons of sel line is specified and hence in an inferred latch.
+
+The following figure shows simulated waveform and synthesis output. As it can be seen in simulated output, output is latched for 10 and 11 conditions.
+
+![image](https://user-images.githubusercontent.com/67214592/183259950-160105fe-5849-4bdf-bd46-db158e26cf15.png)
+
+It can be seen in the synthesis output, D-latch is present at the output.
+
+![image](https://user-images.githubusercontent.com/67214592/183259976-8e087b46-52f9-48ae-9dec-adeeb1253350.png)
+
+**Example2-comp_case:**
+
+consider a following code.
+
+```
+module comp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
+always @ (*)
+begin
+	case(sel)
+		2'b00 : y = i0;
+		2'b01 : y = i1;
+		default : y = i2;
+	endcase
+end
+endmodule
+
+```
+In the above code the missing conditions are taken care by default statement. Also simulation of above code shown below.
+
+![image](https://user-images.githubusercontent.com/67214592/183260076-19c22eca-8009-4158-b42e-bc9f5042893f.png)
+
+And also it can be observed from the synthesized output, no D latch is inferred.
+
+![image](https://user-images.githubusercontent.com/67214592/183260107-19fe9950-6c3f-4591-8a91-8182c62d8445.png)
+
+**Example3-partial_case_assign:**
+
+consider a following code.
+
+```
+module partial_case_assign (input i0 , input i1 , input i2 , input [1:0] sel, output reg x, output reg y);
+always @ (*)
+begin
+	case(sel)
+		2'b00 : begin
+			y = i0;
+			x = i2;
+		2'b01 : y = i1;
+		default : begin
+			x = i1;
+			y = i2;
+	endcase
+end
+endmodule
+
+```
+The following figure shows simulated waveform and synthesis output. As it can be seen in simulated output, output is latched for 01 conditions.
+
+
+
+It can be seen in the synthesis output, D-latch is present at the output.
+
+![image](https://user-images.githubusercontent.com/67214592/183260234-e371316a-0f61-40af-9cf6-ceddb210758d.png)
 
 
 
