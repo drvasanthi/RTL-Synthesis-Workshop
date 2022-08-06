@@ -35,7 +35,11 @@
 	2. [CASE statements](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#52-case-statement)
 	3. [looping constructs](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#53-looping-constructs)
 
-[**Acknowledgement**]
+[**Contributors**](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#contributors)
+
+[**Acknowledgement**](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#acknowledgement)
+
+[**Contact Information**](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#contact-information)
 
 
 ## **1. Introduction to Verilog RTL Design and Synthesis**
@@ -846,6 +850,96 @@ It can be seen in the synthesis output, D-latch is present at the output.
 
 ![image](https://user-images.githubusercontent.com/67214592/183260234-e371316a-0f61-40af-9cf6-ceddb210758d.png)
 
+
+### **iii. Looping constructs**
+
+There are two types of looping constructs 
+
+- for loop constructs
+- for generate loop constructs
+
+**a. for loop constructs**
+
+*for* loops are placed inside the always statement. This loop is not going to instantiate any hardware.
+
+**Example1-mux_generate:**
+
+```
+module mux_generate (input i0 , input i1, input i2 , input i3 , input [1:0] sel  , output reg y);
+wire [3:0] i_int;
+assign i_int = {i3,i2,i1,i0};
+integer k;
+always @ (*)
+begin
+for(k = 0; k < 4; k=k+1) begin
+	if(k == sel)
+		y = i_int[k];
+end
+end
+endmodule
+```
+
+The above code represents a 4:1 Mux. The same can be verified by synthesizing this design.
+
+Below figure shows the RTL simulation.
+
+![image](https://user-images.githubusercontent.com/67214592/183260518-a9110eb9-f4f4-401f-9a0a-0e689fef0671.png)
+
+The figure below shows synthesized output of the above code.
+
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/mux_generate.PNG)
+
+**b. for generate loop constructs**
+
+*for* generate statements are used to instantiate a hardware module for a large number of instantiations. Ex: to instantiate an AND gate 100 times. They should never be used inside an always block.
+
+An example of using for generate statements is given below. We use generate statements and for loop to implement an 8-bit Ripple Carry Adder which uses multiple instantiations of Full Adder block.
+
+```
+module rca (input [7:0] num1 , input [7:0] num2 , output [8:0] sum);
+wire [7:0] int_sum;
+wire [7:0]int_co;
+
+genvar i;
+generate
+	for (i = 1 ; i < 8; i=i+1) begin
+		fa u_fa_1 (.a(num1[i]),.b(num2[i]),.c(int_co[i-1]),.co(int_co[i]),.sum(int_sum[i]));
+	end
+
+endgenerate
+fa u_fa_0 (.a(num1[0]),.b(num2[0]),.c(1'b0),.co(int_co[0]),.sum(int_sum[0]));
+
+
+assign sum[7:0] = int_sum;
+assign sum[8] = int_co[7];
+endmodule
+
+```
+		
+The following figure shows the output of simulation. 
+
+![image](https://user-images.githubusercontent.com/67214592/183260651-a3f2f096-9f9b-4f51-9cf4-2fcd06fea458.png)
+		
+The following figure shows the synthesised output in which FA modules are instantiated.
+		
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D5/rca_synth.PNG)
+		
+		
+## **Acknowledgement**
+
+## **Contributors**
+
+  * Vasanthi D R
+  * Kunal Ghosh
+
+## **Acknowledgement**
+  
+  * Kunal Ghosh, Director, VSD Corp. Pvt. Ltd.
+
+## **Contact Information**
+
+  * Vasanthi D R, PhD Scholar, International Institute of Information Technology, Bangalore vasanthidr11@gmail.com
+  * Kunal Ghosh, Director, VSD Corp. Pvt. Ltd. kunalghosh@gmail.com
 
 
 
