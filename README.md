@@ -926,7 +926,6 @@ The following figure shows the synthesised output in which FA modules are instan
 ![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D5/rca_synth.PNG)
 		
 		
-## **Acknowledgement**
 
 ## **Contributors**
 
