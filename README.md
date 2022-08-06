@@ -23,11 +23,12 @@
 		1. [Constant propagation](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#constant-propagation)
 		2. [Boolean logic optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#optimization-of-boolean-logic)
 	2.  [Sequential Logic Optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#32-optimization-of-sequential-circuits)
-		1. [Optimization Sequential circuit using constant propagation](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#optimization-sequential-circuit-using-constant-propagation)\
+		1. [Optimization sequential circuit using constant propagation](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#optimization-sequential-circuit-using-constant-propagation)
+		2. [Sequential optimization for unused outputs](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#sequential-optimization-for-unused-outputs)
 
-4. [**Day 4**: GLS, blocking v/s non-blocking, and synthesis-simulation mismatch](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#41-gls---gate-level-simulation)
-	1. [4.1 GLS - Gate Level Simulation ](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#41-gls---gate-level-simulation)
-	2. [4.2 Synthesis Simulation Mismatch](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#42-synthesis-simulation-mismatch)
+4. [**Day 4**: GLS, Blocking v/s Non-Blocking, and Synthesis-Simulation Mismatch](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#41-gls---gate-level-simulation)
+	1. [GLS - Gate Level Simulation ](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#41-gls---gate-level-simulation)
+	2. [Synthesis-Simulation Mismatch](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#42-synthesis-simulation-mismatch)
 
 5. [**Day 5**: If Case Statements and for loop & for generate statements](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#5-if-case-statements-and-for-loop--for-generate-statements)
 	1. [IF statements](https://github.com/mrshashi4u/RTL-Design-and-Synthesis#51-if-statement) 
@@ -264,9 +265,9 @@ The verilog code is given by the following and it is importnant to observe the i
    assign y = a * 2;
  endmodule</code></pre>
  
- The following figure shows synthesis schematic of the design.
+ The following figure shows synthesis schematic of the design.   
  
- ![image](https://user-images.githubusercontent.com/67214592/183255244-f6f73d25-3aa4-4584-a5f0-2b03c301a188.png)
+ ![image](https://user-images.githubusercontent.com/67214592/183255244-f6f73d25-3aa4-4584-a5f0-2b03c301a188.png)   
  
  The verilog code is given by the following and it is importnant to observe the inputs which are present inside the statement.  
 
@@ -315,6 +316,7 @@ The synthesis of the above design shows that, the 2:1 mux is replaced with an AN
 **Opt_Example 2:**
 
 Let us consider the following mux based logic.
+
 ![image](https://user-images.githubusercontent.com/67214592/183256870-f016396e-ce8b-4270-b857-c5fcf38a4dff.png)
 
 In the above logic circuit, the optimization leads to OR gate.
@@ -365,5 +367,174 @@ The synthesis of the above design shows the XNOR gate and hence results in an op
 
 ![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Synt_opt_check4.PNG)
 
+### **ii. Sequential Logic Optimization**
+
+- Constant Propagation
+- Retiming 
+- Cloning
+- State optimization
+
+We will restrict our discussion to sequential logic optimization in constant propagation.
+
+#### **a. Optimization sequential circuit using constant propagation**
+
+**Sequential Example-1**
+
+Consider a sequential circuit shown below
+
+![image](https://user-images.githubusercontent.com/67214592/183257792-9b6c5148-89c5-4e28-9669-6bc9e6348a92.png)
+
+In the above circuit, if asynchronous reset is enabled then Q = 0 irrespective of clock, else Q =1 since D input is set to 1. 
+
+The same can be verified in the simulated waveform shown below with verilog code.
+
+<pre><code>
+module dff_const1(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+		q <= 1'b0;
+	else
+		q <= 1'b1;
+end
+endmodule
+</pre></code>
+
+![image](https://user-images.githubusercontent.com/67214592/183257851-d710d1e0-2bf5-4347-8d67-f3f46972e040.png)
+
+The following figure shows the synthesis of the above circuit. As it can be seen in the above figure no optimization can be done with the design.
+
+![image](https://user-images.githubusercontent.com/67214592/183258086-2ed3b8d2-a292-468b-99bc-2ae50fefac50.png)
+
+**Sequential Example-2**
+
+Consider an another sequential circuit shown below
+
+![image](https://user-images.githubusercontent.com/67214592/183258107-e7c8e4a0-d7b8-4c25-9911-259acdc1d17b.png)
+
+In the above circuit, if the asynchronous set is enabled then Q = 1 and the output remains at the same state, since D input is set to 1. The same can be verified in the simulated waveform shown below along with verilog.
+
+<pre><code>
+module dff_const2(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+		q <= 1'b1;
+	else
+		q <= 1'b1;
+end
+endmodule
+</pre></code>
+
+
+![image](https://user-images.githubusercontent.com/67214592/183258039-66f78161-8fde-4ff4-9aaf-c9dba3e89e32.png)
+
+As shown in the wave form, the output remains at logic 1, irrespective of states of the other inputs. Hence the above design can be replaced by a simple buffer there by optimizing power and area.
+
+The following figure shows the synthesis of the above circuit. As it can be seen in the synthesis design, optimization is performed by in synthesis stage by replacing the entire design by a simple wire buffer.
+
+![image](https://user-images.githubusercontent.com/67214592/183258146-fa8e158b-a18b-4d57-969a-d504eb020112.png)
+
+**Sequential Example-3**
+
+Consider an another sequential circuit shown below
+
+![image](https://user-images.githubusercontent.com/67214592/183258165-c674ddb1-ef55-4d24-8e5d-4f0855d7a041.png)
+
+The above circuit consists of two asynchronous set and reset DFF. Hence the optimization can't be done in the above design. 
+
+
+The following figure shows the synthesis of the above circuit along with verilog code. As it can be seen in the synthesis design, optimization is performed  in synthesis stage by replacing the entire design by a simple wire buffer.
+
+<pre><code>
+module dff_const3(input clk, input reset, output reg q);
+reg q1;
+
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+	begin
+		q <= 1'b1;
+		q1 <= 1'b0;
+	end
+	else
+	begin
+		q1 <= 1'b1;
+		q <= q1;
+	end
+end
+</pre></code>
+
+![image](https://user-images.githubusercontent.com/67214592/183258213-623e49c5-4b41-427c-a7a0-a97ee326183c.png)
+
+![image](https://user-images.githubusercontent.com/67214592/183258277-16032541-531b-4abd-a6a6-6151ca571935.png)
+
+**Sequential Example-4**
+
+In the design sequential example - 3, the optimization can be achieved by replacing asynchronous **reset DFF** by asynchronous **set DFF** which is as shown in the below example.
+
+![image](https://user-images.githubusercontent.com/67214592/183258301-074870be-4266-4d2f-a66e-3900d1030c0e.png)
+
+
+The above circuit consists of two asynchronous set DFF's. Hence the output remains at logic irreseprctive of clock. Hence optimization in the above design results in a buffer. 
+
+
+The following figure shows the synthesis of the above circuit along with the code. As it can be seen in the synthesis design, the two flipflops are replaced by two buffers.
+
+<pre><code>
+module dff_const4(input clk, input reset, output reg q);
+reg q1;
+
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+	begin
+		q <= 1'b1;
+		q1 <= 1'b1;
+	end
+	else
+	begin
+		q1 <= 1'b1;
+		q <= q1;
+	end
+end
+
+endmodule
+</pre></code>
+
+
+![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/synt_seq4.PNG)
+
+#### **b. Sequential optimization for unused outputs**
+
+Let us consider following verilog code of an up counter.
+
+<pre><code>
+
+module counter_opt (input clk , input reset , output q);
+reg [2:0] count;
+assign q = count[0];
+
+always @(posedge clk ,posedge reset)
+begin
+	if(reset)
+		count <= 3'b000;
+	else
+		count <= count + 1;
+end
+
+endmodule
+			
+</pre></code>
+
+In the above example, the output is assigned to LSB of counter value. Hence we can optimize the design for the required output so that additional hardware overhead can be minimized.
+			
+The following figure show the synthesized output of the above logic. 
+
+![image](https://user-images.githubusercontent.com/67214592/183258493-73857324-1698-4e5d-9ae1-1585edd8fde4.png)
+
+As shown in the above figure, only one DFF is utilized in the design in contrast to 3-DFF's for a 3-bit counter. Hence the optimization results in reduced area and power. 
+
+## **4. GLS, Blocking v/s Non-Blocking, and Synthesis-Simulation Mismatch**
 
 
