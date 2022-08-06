@@ -262,7 +262,7 @@ The verilog code is given by the following and it is importnant to observe the i
 
 <pre><code>module mul2 (input [2:0] a, output [3:0] y);
    assign y = a * 2;
- endmodule
+ endmodule</code></pre>
  
  The following figure shows synthesis schematic of the design.
  
@@ -272,7 +272,7 @@ The verilog code is given by the following and it is importnant to observe the i
 
 <pre><code>module mul2 (input [2:0] a, output [5:0] y);
    assign y = a * 9;
- endmodule
+ endmodule</code></pre>
  
  The following figure shows synthesis schematic of the design.
  
