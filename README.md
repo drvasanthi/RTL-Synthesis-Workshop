@@ -159,13 +159,13 @@ endmodule
 </pre></code>
 
 The following fig shows the heirarchy of the multiple modules.
-![image](https://user-images.githubusercontent.com/67214592/183252872-7e980846-3339-453e-8071-9132dd45c3ca.png)
+![image](https://user-images.githubusercontent.com/67214592/183256658-f052a2e7-60a3-4fd1-a11b-9673eab81f60.png)
 
 **Flatten Synthesis**
 
 `flatten` is the command to flatten out the heirarchy and this is the resultant structure after removing heirarchy of the modules.
 
-![image](https://user-images.githubusercontent.com/67214592/183252920-cbc427f7-4b50-4aeb-b379-9db203e6d678.png)
+![image](https://user-images.githubusercontent.com/67214592/183256716-61d01cbf-a6b6-4214-bc4e-69067493ca5a.png)
 
 ### **iii. Various Flop Coding Styles and Optimization**  
 * Glitches in combinational circuits are unwanted transient output states. They are caused when the inputs are at intermediate state before reaching their final state. 
@@ -308,14 +308,14 @@ module opt_check (input a , input b , output y);
 endmodule
 </code></pre>
 
-The synthesis of the above design shows that, the 2:1 mux is replaced with an OR gate and hence results in an optimization.
+The synthesis of the above design shows that, the 2:1 mux is replaced with an AND gate and hence results in an optimization.
 
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/opt_Check.PNG)
+![image](https://user-images.githubusercontent.com/67214592/183256851-1132f976-99bf-446f-8224-da5e0788f613.png)
 
 **Opt_Example 2:**
 
 Let us consider the following mux based logic.
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Opt_check2.PNG)
+![image](https://user-images.githubusercontent.com/67214592/183256870-f016396e-ce8b-4270-b857-c5fcf38a4dff.png)
 
 In the above logic circuit, the optimization leads to OR gate.
 
@@ -325,13 +325,15 @@ module opt_check2 (input a , input b , output y);
 endmodule
 </code></pre>
 
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Synt_opt_check2.PNG)
+The synthesis of the above design shows that, the 2:1 mux is replaced with an OR gate and hence results in an optimization.
+
+![image](https://user-images.githubusercontent.com/67214592/183256935-ff6ae038-f28e-47c2-8aa1-2ee33474bb23.png)
 
 **Opt_Example 3:**
 
 In the following example, two mux are connected to form a logic, and it requires total 8 logic gates to implement the mux.
 
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Opt_check3.PNG)
+![image](https://user-images.githubusercontent.com/67214592/183256985-3b08a82e-e748-40a6-bd21-decc2abeccc6.png)
 
 In the above logic circuit, the optimization leads to three inputs AND gate.
 
@@ -341,13 +343,15 @@ module opt_check3 (input a , input b, input c , output y);
 endmodule
 </code></pre>
 
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Synt_opt_check3.PNG)
+The synthesis of the above design shows that, the 2:1 mux is replaced with an 3-input AND gate and hence results in an optimization.
+
+![image](https://user-images.githubusercontent.com/67214592/183257127-e0f878e8-dec0-4191-842b-47bd6a53bbda.png)
 
 **Opt_Example 4:**
 
 In this example, two mux and two gates are connected to form a logic.
 
-![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/opt_check4.PNG)
+![image](https://user-images.githubusercontent.com/67214592/183257196-770f9867-308a-4210-a560-29e968c0fc0d.png)
 
 In the above logic circuit, the optimization leads top XNOR gate
 
@@ -357,5 +361,9 @@ module opt_check4 (input a , input b , input c , output y);
  endmodule
 </code></pre>
 
+The synthesis of the above design shows the XNOR gate and hence results in an optimization.
+
 ![](https://github.com/mrshashi4u/RTL-Design-and-Synthesis/blob/main/D3/Synt_opt_check4.PNG)
+
+
 
