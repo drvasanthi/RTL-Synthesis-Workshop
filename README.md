@@ -6,7 +6,7 @@
 	1. [SKY130 RTL Introduction to Open-source Iverilog Simulator ](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#11-sky130-rtl-introduction-to-open-source-iverilog-simulator)
 		1. [Design](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#a-design)
 		2. [Testbench](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#b-testbecnh)
-		3. [Simulator](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#c--simulator)
+		3. [Simulator](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#c-simulator)
 	2. [SKY130 RTL Introduction to Yosys and Logic Synthesis ](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#ii-SKY130-rtl-introduction-to-yosys-and-logic-synthesis)
 
 2. [**Day 2**: Introduction to timing libs, heirarchial vs flat synthesis and efficient flop coding style](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#2-introduction-to-timing-lib-heirarchial-vs-flat-synthesis-and-efficient-flop-coding-style)
