@@ -19,27 +19,27 @@
     	4. [Optimization](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#d-optimization) 
     	
 3. [**Day 3**:  Combinational and Sequential Optimization](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#3-combinational-and-sequential-optimization)
-	1. [Combinational Logic Optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#31-optimization-of-combinational-circuits)
-		1. [Constant propagation](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#constant-propagation)
-		2. [Boolean logic optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#optimization-of-boolean-logic)
-	2.  [Sequential Logic Optimization](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#32-optimization-of-sequential-circuits)
-		1. [Optimization sequential circuit using constant propagation](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#optimization-sequential-circuit-using-constant-propagation)
-		2. [Sequential optimization for unused outputs](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#sequential-optimization-for-unused-outputs)
+	1. [Combinational Logic Optimization](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#i-combinational-logic-optimization)
+		1. [Constant propagation](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#a-constant-propagation)
+		2. [Boolean logic optimization](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#b-boolean-logic-optimization)
+	2.  [Sequential Logic Optimization](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#ii-sequential-logic-optimization)
+		1. [Optimization sequential circuit using constant propagation](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#a-optimization-sequential-circuit-using-constant-propagation)
+		2. [Sequential optimization for unused outputs](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#b-sequential-optimization-for-unused-outputs)
 
-4. [**Day 4**: GLS, Blocking v/s Non-Blocking, and Synthesis-Simulation Mismatch](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#41-gls---gate-level-simulation)
-	1. [GLS - Gate Level Simulation ](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#41-gls---gate-level-simulation)
-	2. [Synthesis-Simulation Mismatch](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#42-synthesis-simulation-mismatch)
+4. [**Day 4**: GLS, Blocking v/s Non-Blocking, and Synthesis-Simulation Mismatch](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#4-gls-blocking-vs-non-blocking-and-synthesis-simulation-mismatch)
+	1. [GLS - Gate Level Simulation ](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#i-gls---gate-level-simulation)
+	2. [Synthesis-Simulation Mismatch](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#ii-synthesis-simulation-mismatch)
 
-5. [**Day 5**: If, Case, For loop & For generate Statements](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#5-if-case-for-loop-for-generate-statements)
-	1. [IF statements](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#51-if-statement) 
-	2. [CASE statements](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#52-case-statement)
-	3. [looping constructs](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#53-looping-constructs)
+5. [**Day 5**: If, Case, For loop & For generate Statements](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#5-if-case-for-loop--for-generate-statements)
+	1. [IF statements](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#i-if-statement) 
+	2. [CASE statements](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#ii-case-statement)
+	3. [looping constructs](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#iii-looping-constructs)
 
-[**Contributors**](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#contributors)
+[**Contributors**](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#contributors)
 
-[**Acknowledgement**](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#acknowledgement)
+[**Acknowledgement**](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#acknowledgement)
 
-[**Contact Information**](https://github.com/drvasanthi/SKY130-RTL-Synthesis-Workshop#contact-information)
+[**Contact Information**](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#contact-information)
 
 
 ## **1. Introduction to Verilog RTL Design and Synthesis**
