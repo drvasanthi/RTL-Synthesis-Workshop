@@ -3,11 +3,12 @@
 ## TABLE OF CONTENT
 
 1. [**Day 1**:  Introduction to Verilog RTL Design and Synthesis](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis/blob/main/README.md#1-introduction-to-verilog-rtl-design-and-synthesis) 
-	1. [SKY130 RTL Introduction to Open-source Iverilog Simulator ](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#11-sky130-rtl-introduction-to-open-source-iverilog-simulator)
+	1. [SKY130 RTL Introduction to Open-source Iverilog Simulator ](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#i-sky130-rtl-introduction-to-open-source-iverilog-simulator)
 		1. [Design](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#a-design)
 		2. [Testbench](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#b-testbecnh)
 		3. [Simulator](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#c-simulator)
 	2. [SKY130 RTL Introduction to Yosys and Logic Synthesis ](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#ii-sky130-rtl-introduction-to-yosys-and-logic-synthesis)
+	3. [Lab Example using iverilog, gtkwave and yosys]
 
 2. [**Day 2**: Introduction to timing libs, heirarchial vs flat synthesis and efficient flop coding style](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#2-introduction-to-timing-libs-heirarchial-vs-flat-synthesis-and-efficient-flop-coding-styles)
     1. [Introduction to timing.libs](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#i-introduction-to-timinglibs)
@@ -46,7 +47,7 @@
 
 Register Transfer Logic (RTL) is used to capture logic in design phase of the integrated circuit design cycle. A logic synthesis tool converts an RTL description written in Hardware Description Language (Verilog/VHDL) to a gate-level description of the circuit. Placement and routing tools use the synthesis outputs to generate a physical layout. The following figure shows the flow of RTL synthesis.
 
-### **1.1. SKY130 RTL Introduction to Open-source Iverilog Simulator**   
+### **i. SKY130 RTL Introduction to Open-source Iverilog Simulator**   
 Icarus Verilog(iverilog) is a Verilog simulator used to verify functional description of a design. It functions as a compiler, converting Verilog source code into a target format. VCD (Value Change Dump) is a standard dump format for Verilog that dumps the status of the design as it simulates. The iverilog simulator takes a verilog design file and its test bench as inputs. The following figure illustrates the inputs and outputs of iverilog simulator.
 ![image](https://user-images.githubusercontent.com/67214592/183249132-c009f5ee-4e72-48af-b6c3-8b6ec0cfcbec.png)
 #### **a. Design**  
@@ -107,6 +108,25 @@ To Verify the Synthesis:
 |`abc -liberty ../my_lib/lib/sy130_fd_sc_hd__tt_025C_1V80.lib`|To generate gate level netlist|
 |`write_verilog -noattr  verilogfilename_netlist.v`|To write netlist into a verilog file.|
 |`show`|To display gate level schematic of the design|
+
+### **iii. Lab Example using iverilog, gtkwave and yosys**
+
+**iverilog - good_mux.v**
+
+![good_mux_v](https://user-images.githubusercontent.com/67214592/183285672-b0172a43-cbbb-476f-93cf-1dcf8461f4d1.PNG)
+
+**RTL Simulation**
+
+![good_mux_sim](https://user-images.githubusercontent.com/67214592/183285679-45927589-97d1-42c8-94d2-671e0cbfb02a.PNG)
+
+**Synthesis**
+
+![good_mux_synth](https://user-images.githubusercontent.com/67214592/183285696-41fd89f7-93ff-4e11-90a1-e76cb42acb93.PNG)
+
+**Netlist**
+
+![good_mux_netlist](https://user-images.githubusercontent.com/67214592/183285708-e96d9732-9b4a-45f8-89ae-9c19cd4e7086.PNG)
+
 
 ## **2. Introduction to timing libs, heirarchial vs flat synthesis and efficient flop coding styles**
 
