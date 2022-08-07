@@ -962,7 +962,10 @@ endmodule
 The following figure shows the output of `RTL simulation`. 
 
 ![image](https://user-images.githubusercontent.com/67214592/183260651-a3f2f096-9f9b-4f51-9cf4-2fcd06fea458.png)
-		
+
+The following figure shows the `synthesised output` in which FA modules are instantiated.
+
+![image](https://user-images.githubusercontent.com/67214592/183301617-2f28c1cc-ebe5-42fc-9f5c-095d7712a85e.png)
 		
 
 ## **Contributors**
@@ -972,7 +975,7 @@ The following figure shows the output of `RTL simulation`.
 
 ## **Acknowledgement**
   
-  * Kunal Ghosh, Director, VSD Corp. Pvt. Ltd.
+  A well structured workshop for individuals who is aspiring to start their career in VLSI. Heartfelt thanks to the team of VLSI System Design for this wonderful    workshop, lots to be learnt and looking forward for more such workshops. Special thanks to **Kunal Ghosh** for helping throughout the workshop and ease for flow.
 
 ## **Contact Information**
 
