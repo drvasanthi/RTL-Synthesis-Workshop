@@ -976,8 +976,8 @@ The following figure shows the output of `RTL simulation`.
 
 ## **Contact Information**
 
-  * Vasanthi D R, PhD Scholar, International Institute of Information Technology, Bangalore vasanthidr11@gmail.com
-  * Kunal Ghosh, Director, VSD Corp. Pvt. Ltd. kunalghosh@gmail.com
+  * Vasanthi D R, PhD Scholar, International Institute of Information Technology, Bangalore vasanthidr11@gmail.com.
+  * Kunal Ghosh, Director, VSD Corp. Pvt. Ltd. kunalghosh@gmail.com.
 
 
 
