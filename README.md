@@ -8,7 +8,7 @@
 		2. [Testbench](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#b-testbecnh)
 		3. [Simulator](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#c-simulator)
 	2. [SKY130 RTL Introduction to Yosys and Logic Synthesis ](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#ii-sky130-rtl-introduction-to-yosys-and-logic-synthesis)
-	3. [Lab Example using iverilog, gtkwave and yosys]
+	3. [Lab Example using iverilog, gtkwave and yosys](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis/blob/main/README.md#iii-lab-example-using-iverilog-gtkwave-and-yosys)
 
 2. [**Day 2**: Introduction to timing libs, heirarchial vs flat synthesis and efficient flop coding style](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#2-introduction-to-timing-libs-heirarchial-vs-flat-synthesis-and-efficient-flop-coding-styles)
     1. [Introduction to timing.libs](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#i-introduction-to-timinglibs)
