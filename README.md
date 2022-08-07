@@ -115,6 +115,8 @@ To Verify the Synthesis:
 
 ![good_mux_v](https://user-images.githubusercontent.com/67214592/183285672-b0172a43-cbbb-476f-93cf-1dcf8461f4d1.PNG)
 
+![steps_good_mux](https://user-images.githubusercontent.com/67214592/183285867-a31fdc0f-976f-4b42-9529-f5833f29832b.PNG)
+
 **RTL Simulation**
 
 ![good_mux_sim](https://user-images.githubusercontent.com/67214592/183285679-45927589-97d1-42c8-94d2-671e0cbfb02a.PNG)
