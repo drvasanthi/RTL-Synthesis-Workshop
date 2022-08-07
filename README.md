@@ -207,7 +207,7 @@ There are mainly three flop coding styles which are -
 
 #### **a. Flop with asynchronous set/reset**
 
-The verilog code is given by the following and it is importnant to observe the inputs which are present inside always statement. 
+The `verilog code` is given by the following and it is importnant to observe the inputs which are present inside always statement. 
 
  <pre><code>module dff_asyncres ( input clk ,  input async_reset , input d , output reg q );
 always @ (posedge clk , posedge async_reset)
@@ -218,26 +218,25 @@ begin
      q <= d;
 end </code></pre>
 	      
-In this coding style asynchronous set/reset pin is not synchronized with the clock and it has got highest priority as compared to all other inputs. 
-As shown in the following figure when reset is 1, irrespective of all other inputs output becomes zero.
+`Asyn_rst Simulation`: In this coding style asynchronous set/reset pin is not synchronized with the clock and it has got highest priority as compared to all other inputs. As shown in the following figure when reset is 1, irrespective of all other inputs, output becomes zero.
 
 ![image](https://user-images.githubusercontent.com/67214592/183254231-d8de95dd-e2a0-4420-97c1-bd8d032e7c30.png)
 
-As shown in the following figure when set is 1,	      
+'Asyn_set Simulation`: As shown in the following figure when set is 1,	      
 	     
 ![image](https://user-images.githubusercontent.com/67214592/183254410-9f5ab9d7-0178-4d4f-a822-86ef3d3ed593.png)
 
-The following figure shows schematic of Flop with asynchronous reset. 
+`Asyn_rst Synthesis`: The following figure shows schematic of Flop with asynchronous reset. 
 
 ![image](https://user-images.githubusercontent.com/67214592/183254689-e06b7736-71fe-422b-9738-1f45bfd99535.png)
 	      
-The following figure shows schematic of Flop with asynchronous set. 
+`Asyn_set Synthesis`: The following figure shows schematic of Flop with asynchronous set. 
 	      
 ![image](https://user-images.githubusercontent.com/67214592/183254785-2ae1ab4d-7c44-418b-848a-7a83e20406a3.png)
 
 #### **b. Flop with synchronous set/reset**  
 	      
-The verilog code is given by the following and it is importnant to observe the inputs which are present inside always statement. 
+The `verilog code` is given by the following and it is importnant to observe the inputs which are present inside always statement. 
 	      
  <pre><code>module dff_syncres ( input clk , input async_reset , input sync_reset , input d , output reg q );
 always @ (posedge clk )
@@ -249,19 +248,17 @@ else
 end
 endmodule</code></pre>
 	     
-In this coding style asynchronous set/reset pin is synchronized with the clock and clock has got highest priority as compared to all other inputs. 
-	      
-As shown in the following figure when reset is 1, irrespective of all other inputs output becomes zero during the next clock edge.
+`Syn_rst Simulation`: In this coding style asynchronous set/reset pin is synchronized with the clock and clock has got highest priority as compared to all other inputs. As shown in the following figure when reset is 1, irrespective of all other inputs output becomes zero during the next clock edge.
 	      
 ![image](https://user-images.githubusercontent.com/67214592/183254576-80138511-432c-426d-b074-b85126e2af35.png)	      
 	      
-The following figure shows schematic of Flop with synchronous reset. 
+`Syn_rst Synthesis`: The following figure shows schematic of Flop with synchronous reset. 
 	      
 ![image](https://user-images.githubusercontent.com/67214592/183254869-228f9c5d-94f2-44db-8b3f-21d0108af92f.png)
 	      
 #### **c. Flop with synchronous and asynchronous set/reset**
 
-The verilog code is given by the following and it is importnant to observe the inputs which are present inside always statement.
+The `verilog code` is given by the following and it is importnant to observe the inputs which are present inside always statement.
 
 <pre><code>module dff\_asyncres\_syncres ( input clk , input async\_reset , input sync\_reset , input d , output reg q );
 always @ (posedge clk , posedge async\_reset)
@@ -275,34 +272,34 @@ begin
 end
 endmodule</code></pre>
 
-In this coding style Din is synchronized with clock whereas asynchronous reset pin is not synchronized.
+`Simulation`: In this coding style Din is synchronized with clock whereas asynchronous reset pin is not synchronized.
 
 ![dff_asynres_syncres](https://user-images.githubusercontent.com/67214592/183264277-45f25c5f-4d02-40af-af14-b0dac6375495.PNG)
 
-The following figure shows synthesis schematic of the design.
+`Synthesis`: The following figure shows schematic of the design.
 
 ![dff_asynres_syncres_synth](https://user-images.githubusercontent.com/67214592/183264283-0d368ec1-ad13-4c21-b6e1-c67bcb385b47.PNG)
 
 #### **d. Optimization**
 
-The verilog code is given by the following and it is importnant to observe the inputs which are present inside the statement.  
+The `verilog code` is given by the following and it is importnant to observe the inputs which are present inside the statement.  
 	* In this hardware/standard cells is not necessary.
 
 <pre><code>module mul2 (input [2:0] a, output [3:0] y);
    assign y = a * 2;
  endmodule</code></pre>
  
- The following figure shows synthesis schematic of the design.   
+ **Synthesis schematic of the design.**   
  
  ![image](https://user-images.githubusercontent.com/67214592/183255244-f6f73d25-3aa4-4584-a5f0-2b03c301a188.png)   
  
- The verilog code is given by the following and it is importnant to observe the inputs which are present inside the statement.  
+ The `verilog code` is given by the following and it is importnant to observe the inputs which are present inside the statement.  
 
 <pre><code>module mul2 (input [2:0] a, output [5:0] y);
    assign y = a * 9;
  endmodule</code></pre>
  
- The following figure shows synthesis schematic of the design.
+ **Synthesis schematic of the design.**
  
  ![image](https://user-images.githubusercontent.com/67214592/183255305-ad9db11d-064f-4337-a783-10b3a8719452.png)
 
