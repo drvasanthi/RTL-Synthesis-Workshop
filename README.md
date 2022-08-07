@@ -158,7 +158,7 @@ The naming convention is as follows
 
 ![image](https://user-images.githubusercontent.com/67214592/183252705-f56fc741-a9e1-4e9d-87f8-fd3326f6fcd7.png)
 
-The above clip from .lib files shows the information of Timing, power area and other details of standard cell AND gate.
+The above clip from .lib files shows the information of Timing, power area and other details of standard cell of AND gate for 2^n input combination.
 
 ### **ii. Heirarchial vs flat synthesis**
 
