@@ -123,7 +123,7 @@ To Verify the Synthesis:
 
 **Synthesis**
 
-![good_mux_synth](https://user-images.githubusercontent.com/67214592/183285696-41fd89f7-93ff-4e11-90a1-e76cb42acb93.PNG)
+![image](https://user-images.githubusercontent.com/67214592/183291812-b95d850c-3194-4b58-934e-d90a394b836b.png)
 
 **Netlist**
 
