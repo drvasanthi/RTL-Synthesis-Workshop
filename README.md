@@ -46,7 +46,7 @@
 
 Register Transfer Logic (RTL) is used to capture logic in design phase of the integrated circuit design cycle. A logic synthesis tool converts an RTL description written in Hardware Description Language (Verilog/VHDL) to a gate-level description of the circuit. Placement and routing tools use the synthesis outputs to generate a physical layout. The following figure shows the flow of RTL synthesis.
 
-### **i. SKY130 RTL Introduction to Open-source Iverilog Simulator**   
+### **1.1. SKY130 RTL Introduction to Open-source Iverilog Simulator**   
 Icarus Verilog(iverilog) is a Verilog simulator used to verify functional description of a design. It functions as a compiler, converting Verilog source code into a target format. VCD (Value Change Dump) is a standard dump format for Verilog that dumps the status of the design as it simulates. The iverilog simulator takes a verilog design file and its test bench as inputs. The following figure illustrates the inputs and outputs of iverilog simulator.
 ![image](https://user-images.githubusercontent.com/67214592/183249132-c009f5ee-4e72-48af-b6c3-8b6ec0cfcbec.png)
 #### **a. Design**  
