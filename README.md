@@ -222,7 +222,7 @@ end </code></pre>
 
 ![image](https://user-images.githubusercontent.com/67214592/183254231-d8de95dd-e2a0-4420-97c1-bd8d032e7c30.png)
 
-'Asyn_set Simulation`: As shown in the following figure when set is 1,	      
+`Asyn_set Simulation`: As shown in the following figure when set is 1,	      
 	     
 ![image](https://user-images.githubusercontent.com/67214592/183254410-9f5ab9d7-0178-4d4f-a822-86ef3d3ed593.png)
 
