@@ -3,8 +3,8 @@
 ## TABLE OF CONTENT
 
 1. [**Day 1**:  Introduction to Verilog RTL Design and Synthesis](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis/blob/main/README.md#1-introduction-to-verilog-rtl-design-and-synthesis) 
-	1. [SKY130 RTL Introduction to Open-source Iverilog Simulator ](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#11-SKY130-rtl-introduction-to-open-source-iverilog-simulator)
-		1. [Design](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#i--design)
+	1. [SKY130 RTL Introduction to Open-source Iverilog Simulator ](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis/edit/main/README.md#11-SKY130-rtl-introduction-to-open-source-iverilog-simulator)
+		1. [Design](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis/edit/main/README.md#i--design)
 		2. [Testbench](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#ii-testbench)
 		3. [Simulator](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#iii--simulator)
 	2. [SKY130 RTL Introduction to Yosys and Logic Synthesis ](https://github.com/drvasanthi/SKY130-RTL-Design-and-Synthesis#11-SKY130-rtl-introduction-to-yosys-and-logic-synthesis)
