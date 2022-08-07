@@ -327,13 +327,15 @@ Let us look into how optimization is performed with the following inputs.
 
 ![image](https://user-images.githubusercontent.com/67214592/183262239-8153b1a6-55cc-4b83-954e-26034f557006.png)
 
+**Verilog Code**
+
 <pre><code>
 module opt_check (input a , input b , output y);
 	assign y = a?b:0;
 endmodule
 </code></pre>
 
-The synthesis of the above design shows that, the 2:1 mux is replaced with an AND gate and hence results in an optimization.
+The `synthesis` of the above design shows that, the 2:1 mux is replaced with an AND gate and hence results in an optimization.
 
 ![image](https://user-images.githubusercontent.com/67214592/183256851-1132f976-99bf-446f-8224-da5e0788f613.png)
 
@@ -345,13 +347,15 @@ Let us consider the following mux based logic.
 
 In the above logic circuit, the optimization leads to OR gate.
 
+**Verilog Code**
+
 <pre><code>
 module opt_check2 (input a , input b , output y);
 	assign y = a?1:b;
 endmodule
 </code></pre>
 
-The synthesis of the above design shows that, the 2:1 mux is replaced with an OR gate and hence results in an optimization.
+The `synthesis` of the above design shows that, the 2:1 mux is replaced with an OR gate and hence results in an optimization.
 
 ![image](https://user-images.githubusercontent.com/67214592/183256935-ff6ae038-f28e-47c2-8aa1-2ee33474bb23.png)
 
@@ -363,13 +367,15 @@ In the following example, two mux are connected to form a logic, and it requires
 
 In the above logic circuit, the optimization leads to three inputs AND gate.
 
+**Verilog Code**
+
 <pre><code>
 module opt_check3 (input a , input b, input c , output y);
 	assign y = a?(c?b:0):0;
 endmodule
 </code></pre>
 
-The synthesis of the above design shows that, the 2:1 mux is replaced with an 3-input AND gate and hence results in an optimization.
+The `synthesis` of the above design shows that, the 2:1 mux is replaced with an 3-input AND gate and hence results in an optimization.
 
 ![image](https://user-images.githubusercontent.com/67214592/183257127-e0f878e8-dec0-4191-842b-47bd6a53bbda.png)
 
@@ -381,13 +387,15 @@ In this example, two mux and two gates are connected to form a logic.
 
 In the above logic circuit, the optimization leads top XNOR gate
 
+**Verilog Code**
+
 <pre><code>
 module opt_check4 (input a , input b , input c , output y);
  	assign y = a?(b?(a & c ):c):(!c);
  endmodule
 </code></pre>
 
-The synthesis of the above design shows the XNOR gate and hence results in an optimization.
+The `synthesis` of the above design shows the XNOR gate and hence results in an optimization.
 
 ![opt_check4_synth](https://user-images.githubusercontent.com/67214592/183264347-d228e372-1d6d-4927-ad96-015d5a2984a2.PNG)
 
@@ -410,7 +418,7 @@ Consider a sequential circuit shown below
 
 In the above circuit, if asynchronous reset is enabled then Q = 0 irrespective of clock, else Q =1 since D input is set to 1. 
 
-The same can be verified in the simulated waveform shown below with verilog code.
+The same can be verified in the simulated waveform shown below with `verilog code`.
 
 <pre><code>
 module dff_const1(input clk, input reset, output reg q);
@@ -424,9 +432,11 @@ end
 endmodule
 </pre></code>
 
+`RTL Simulation`
+
 ![image](https://user-images.githubusercontent.com/67214592/183257851-d710d1e0-2bf5-4347-8d67-f3f46972e040.png)
 
-The following figure shows the synthesis of the above circuit. As it can be seen in the above figure no optimization can be done with the design.
+The following figure shows the `synthesis` of the above circuit. As it can be seen in the above figure no optimization can be done with the design.
 
 ![image](https://user-images.githubusercontent.com/67214592/183258086-2ed3b8d2-a292-468b-99bc-2ae50fefac50.png)
 
@@ -436,7 +446,7 @@ Consider an another sequential circuit shown below
 
 ![image](https://user-images.githubusercontent.com/67214592/183262384-4f0c4789-ff30-42e7-98d0-7bac64d9efea.png)
 
-In the above circuit, if the asynchronous set is enabled then Q = 1 and the output remains at the same state, since D input is set to 1. The same can be verified in the simulated waveform shown below along with verilog.
+In the above circuit, if the asynchronous set is enabled then Q = 1 and the output remains at the same state, since D input is set to 1. The same can be verified in the simulated waveform shown below along with `verilog code`.
 
 <pre><code>
 module dff_const2(input clk, input reset, output reg q);
@@ -450,12 +460,13 @@ end
 endmodule
 </pre></code>
 
+`RTL Simulation`
 
 ![image](https://user-images.githubusercontent.com/67214592/183258039-66f78161-8fde-4ff4-9aaf-c9dba3e89e32.png)
 
-As shown in the wave form, the output remains at logic 1, irrespective of states of the other inputs. Hence the above design can be replaced by a simple buffer there by optimizing power and area.
+As shown in the waveform, the output remains at logic 1, irrespective of states of the other inputs. Hence the above design can be replaced by a simple buffer there by optimizing power and area.
 
-The following figure shows the synthesis of the above circuit. As it can be seen in the synthesis design, optimization is performed by in synthesis stage by replacing the entire design by a simple wire buffer.
+The following figure shows the `synthesis` of the above circuit. As it can be seen in the synthesis design, optimization is performed by in synthesis stage by replacing the entire design by a simple wire buffer.
 
 ![image](https://user-images.githubusercontent.com/67214592/183258146-fa8e158b-a18b-4d57-969a-d504eb020112.png)
 
@@ -468,7 +479,7 @@ Consider an another sequential circuit shown below
 The above circuit consists of two asynchronous set and reset DFF. Hence the optimization can't be done in the above design. 
 
 
-The following figure shows the synthesis of the above circuit along with verilog code. As it can be seen in the synthesis design, optimization is performed  in synthesis stage by replacing the entire design by a simple wire buffer.
+The following figure shows the synthesis of the above circuit along with `verilog code`. As it can be seen in the synthesis design, optimization is performed  in synthesis stage by replacing the entire design by a simple wire buffer.
 
 <pre><code>
 module dff_const3(input clk, input reset, output reg q);
@@ -489,7 +500,11 @@ begin
 end
 </pre></code>
 
+`RTL Simulation`
+
 ![image](https://user-images.githubusercontent.com/67214592/183258213-623e49c5-4b41-427c-a7a0-a97ee326183c.png)
+
+`Synthesis`
 
 ![image](https://user-images.githubusercontent.com/67214592/183258277-16032541-531b-4abd-a6a6-6151ca571935.png)
 
@@ -502,7 +517,7 @@ In the design sequential example - 3, the optimization can be achieved by replac
 The above circuit consists of two asynchronous set DFF's. Hence the output remains at logic irreseprctive of clock. Hence optimization in the above design results in a buffer. 
 
 
-The following figure shows the synthesis of the above circuit along with the code. As it can be seen in the synthesis design, the two flipflops are replaced by two buffers.
+The following figure shows the synthesis of the above circuit along with the `verilog code`. As it can be seen in the synthesis design, the two flipflops are replaced by two buffers.
 
 <pre><code>
 module dff_const4(input clk, input reset, output reg q);
@@ -525,7 +540,11 @@ end
 endmodule
 </pre></code>
 
+`RTL Simulation`
+
 ![dff_const4](https://user-images.githubusercontent.com/67214592/183264508-493044fc-2a42-4223-89ab-3f6ed5d1841e.PNG)
+
+`Synthesis`
 
 ![dff_const4_synth](https://user-images.githubusercontent.com/67214592/183264572-6b605dc7-f571-48e6-a32e-7dd99bb871b5.PNG)
 
@@ -533,7 +552,7 @@ endmodule
 
 ![image](https://user-images.githubusercontent.com/67214592/183262493-4c5e59b4-2c2a-4860-a036-eb5580538e5f.png)
 
-Let us consider following verilog code of an up counter.
+Let us consider following `verilog code` of an up counter.
 
 <pre><code>
 
@@ -555,7 +574,7 @@ endmodule
 
 In the above example, the output is assigned to LSB of counter value. Hence we can optimize the design for the required output so that additional hardware overhead can be minimized.
 			
-The following figure show the synthesized output of the above logic. 
+The following figure show the `synthesized output` of the above logic. 
 
 ![image](https://user-images.githubusercontent.com/67214592/183258493-73857324-1698-4e5d-9ae1-1585edd8fde4.png)
 
@@ -572,13 +591,12 @@ The below figure shows the GLS using iverilog
 
 ![image](https://user-images.githubusercontent.com/67214592/183258753-a445291c-e29e-40a8-b44d-aef41951ea9e.png)
 
-Let us consider an example, the following code shows logic of ternary operator.
-<pre><code>
+Let us consider an example, the following `verilog code` shows logic of ternary operator.
 
+<pre><code>
 module ternary_operator_mux (input i0 , input i1 , input sel , output y);
 	assign y = sel?i1:i0;
 	endmodule
-	
 </pre></code>
 
 The following commands are executed to simulate the design
@@ -588,13 +606,13 @@ iverilog ternary_operator_mux.v tb_ternary_operator_mux.v
 ./a.out
 gtkwave tb_ternary_operator_mux.vcd 
 ```
-The following image shows the simulation of ternary operator. It can observed in the waveform window, the logic of ternary operator is same as 2:1 mux.
+The following image shows the `RTL simulation` of ternary operator. It can observed in the waveform window, the logic of ternary operator is same as 2:1 mux.
 
 ![image](https://user-images.githubusercontent.com/67214592/183258803-c604918c-b111-4087-8be0-7276c0ee4386.png)
 
 Now, let us perform Gate level simulation of ternary operator. 
 
-The following code is used to generate Gate Level Netlist.
+The following code is used to generate `Gate Level Netlist`.
 
 ```
 read_liberty -lib ./my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
@@ -606,7 +624,7 @@ abc -liberty ./my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
 write_verilog -noattr ternary_mux_netlist.v
 ```
-The following figure shows the synthesis of ternary mux
+The following figure shows the `synthesis` of ternary mux
 
 ![image](https://user-images.githubusercontent.com/67214592/183258858-6ca9e436-98a2-4ff1-a72e-9c4825c961ab.png)
 
@@ -617,7 +635,7 @@ gtkwave tb_ternary_operator_mux.vcd
 ```
 
 The above code is used simulated gate level netlist by importing primitives library into verilog.
-The resultant waveform is shown below. It can be observed Gate level simulation matches with RTL simulation.
+The resultant waveform is shown below. It can be observed `Gate level simulation` matches with RTL simulation.
 
 ![image](https://user-images.githubusercontent.com/67214592/183258935-15e5d711-34e3-4a08-9236-7aec6fa10c85.png)
 
@@ -629,7 +647,7 @@ The resultant waveform is shown below. It can be observed Gate level simulation 
  
 **a. Missing Sensitivity list**
 
-Let us look into the following verilog code example
+Let us look into the following `verilog code` example
 ```
 
 module bad_mux (input i0 , input i1 , input sel , output reg y);
@@ -643,11 +661,11 @@ end
 endmodule
 ```
 
-In the above code, sensitivity list includes only the select line, hence output is not updated even though the inputs changes. This is observed in the simulation waveform below.
+In the above code, sensitivity list includes only the select line, hence output is not updated even though the inputs changes. This is observed in the `RTL simulation` waveform below.
 
 ![image](https://user-images.githubusercontent.com/67214592/183259093-a75f1bb2-9017-4883-af48-e79c5d458cf0.png)
 
-Now, let us look into gate level simulation of the above design.
+Now, let us look into `gate level simulation` of the above design.
 The following commands are used to generate gate level netlist.
 ```
 read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
@@ -656,14 +674,14 @@ synth -top bad_mux
 abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
 write_verilog bad_mux_netlist.v
 ```
-The following execution of commands is performed for GLS 
+The following execution of commands is performed for `GLS` 
 
 ```
 iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_mux_netlist.v tb_bad_mux.v
    ./a.out
    gtkwave tb_bad_mux.vcd
 ```
-The GLS simulation waveform is shown below.
+The `GLS` simulation waveform is shown below.
 ![image](https://user-images.githubusercontent.com/67214592/183259143-a0e2bceb-04e0-4688-9ead-a834cabd8b08.png)
 
 From the above synthesis waveform, there is a mismatch synthesis and simulation waveform. This is mainly due to signals in the sensitivity list.
@@ -680,7 +698,7 @@ In a verilog code, blocking statements are in sequential order, where as non blo
      * Executes all RHS when always block is entered and assign to LHS.  
      * Parallel Evaluation.  
      
-let us consider the follwoing verilog example code.
+let us consider the follwoing `verilog code`.
 ```
 module blocking_caveat (input a , input b , input  c, output reg d); 
 reg x;
@@ -695,13 +713,15 @@ endmodule
 
 In the above example the output d is evaluated first and x is evaluated next. Therefore the output d is evaluated based on the previous value of x. This creates a mismatch between Synthesis and Simulation output.
 
-The following figure shows the simulation output of above code. As it can be seen in the output waveform, the output y is evaluated based on the previous values of a and b.
+The following figure shows the `RTL simulation` output of above code. As it can be seen in the output waveform, the output y is evaluated based on the previous values of a and b.
 
 ![image](https://user-images.githubusercontent.com/67214592/183259330-8ce21bfe-25de-44b0-aeb4-891b8f8d0f8c.png)
 
+`Synthesis`
+
 ![image](https://user-images.githubusercontent.com/67214592/183259400-91bbebaa-e313-4ab0-bf8f-73d1582a7861.png)
 
-The following figure shows the simulation output based on the Gate level netlist. The waveform shows the correct execution of the output as compared to the previous output.
+The following figure shows the `GLS` output based on the Gate level netlist. The waveform shows the correct execution of the output as compared to the previous output.
 
 ![image](https://user-images.githubusercontent.com/67214592/183259420-e5459f75-986e-403e-a9b3-ac17afb12c3a.png)
 
@@ -738,7 +758,7 @@ Now, let us consider the cases where if constructs are not written properly.
 
 **Example1-incomplete_if:**
 
-Consider the below verilog code.
+Consider the below `verilog code`.
 
 ```
 module incomp_if (input i0 , input i1 , input i2 , output reg y);
@@ -751,18 +771,18 @@ endmodule
 ```
 In the above example if structure is incomplete. Let us check its waveform and synthesized output.
 
-As shown in the waveform below, output retains its previous state if i0=0, hence it acts like a latch.
+As shown in the `RTL Simulation` waveform below, output retains its previous state if i0=0, hence it acts like a latch.
 
 ![image](https://user-images.githubusercontent.com/67214592/183259704-068f3ca3-40e4-46bc-a573-ac86c35768fe.png)
 
-Synthesized output shows D latch connected between input and output.
+`Synthesized` output shows D latch connected between input and output.
 
 ![image](https://user-images.githubusercontent.com/67214592/183259729-eee734cc-6b7b-4d0a-9c78-c63bbf874f16.png)
 
 
 **Example2-incomplete_if2:**
 
-Consider a verilog code shown below.
+Consider a `verilog code` shown below.
 
 ```
 module incomp_if2 (input i0 , input i1 , input i2 , input i3, output reg y);
@@ -777,11 +797,11 @@ endmodule
 
 ```
 
-Figure below shows the simulated waveform and synthesis results of the above code. In this we can observe when both I0 and I2 are zero, the output remains at either 0 or 1.
+Figure below shows the `RTL simulated` waveform and synthesis results of the above code. In this we can observe when both I0 and I2 are zero, the output remains at either 0 or 1.
 
 ![image](https://user-images.githubusercontent.com/67214592/183259836-b6eeeb2b-eeb6-4a97-9321-1c3cfe89d7f2.png)
 
-Synthesized output shows D latch with combinational logic and OR gate
+`Synthesized` output shows D latch with combinational logic and OR gate
 
 ![image](https://user-images.githubusercontent.com/67214592/183259886-8e8f3ff4-3f23-44d5-bdf0-7742841210d6.png)
 
@@ -793,7 +813,7 @@ Let us try to understand this by taking an example of a complete case statement 
 
 **Example1-incomp_case:**
 
-Given below is the code of an incomplete case statement example which will result in an inferred latch.
+Given below is the `verilog code` of an incomplete case statement example which will result in an inferred latch.
 
 ```
 module incomp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
@@ -809,17 +829,17 @@ endmodule
 
 As shown in the above code, only two conditons of sel line is specified and hence in an inferred latch.
 
-The following figure shows simulated waveform and synthesis output. As it can be seen in simulated output, output is latched for 10 and 11 conditions.
+The following figure shows `RTL simulated` waveform and synthesis output. As it can be seen in simulated output, output is latched for 10 and 11 conditions.
 
 ![image](https://user-images.githubusercontent.com/67214592/183259950-160105fe-5849-4bdf-bd46-db158e26cf15.png)
 
-It can be seen in the synthesis output, D-latch is present at the output.
+It can be seen in the `synthesis output`, D-latch is present at the output.
 
 ![image](https://user-images.githubusercontent.com/67214592/183259976-8e087b46-52f9-48ae-9dec-adeeb1253350.png)
 
 **Example2-comp_case:**
 
-consider a following code.
+consider a following `verilog code`.
 
 ```
 module comp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
@@ -834,17 +854,17 @@ end
 endmodule
 
 ```
-In the above code the missing conditions are taken care by default statement. Also simulation of above code shown below.
+In the above code the missing conditions are taken care by default statement. Also `RTL simulation` of above code shown below.
 
 ![image](https://user-images.githubusercontent.com/67214592/183260076-19c22eca-8009-4158-b42e-bc9f5042893f.png)
 
-And also it can be observed from the synthesized output, no D latch is inferred.
+And also it can be observed from the `synthesized output`, no D latch is inferred.
 
 ![image](https://user-images.githubusercontent.com/67214592/183260107-19fe9950-6c3f-4591-8a91-8182c62d8445.png)
 
 **Example3-partial_case_assign:**
 
-consider a following code.
+consider a following `verilog code`.
 
 ```
 module partial_case_assign (input i0 , input i1 , input i2 , input [1:0] sel, output reg x, output reg y);
@@ -863,11 +883,9 @@ end
 endmodule
 
 ```
-The following figure shows simulated waveform and synthesis output. As it can be seen in simulated output, output is latched for 01 conditions.
 
 
-
-It can be seen in the synthesis output, D-latch is present at the output.
+It can be seen in the `synthesis output`, D-latch is present at the output.
 
 ![image](https://user-images.githubusercontent.com/67214592/183260234-e371316a-0f61-40af-9cf6-ceddb210758d.png)
 
@@ -884,6 +902,8 @@ There are two types of looping constructs
 *for* loops are placed inside the always statement. This loop is not going to instantiate any hardware.
 
 **Example1-mux_generate:**
+
+`verilog code`
 
 ```
 module mux_generate (input i0 , input i1, input i2 , input i3 , input [1:0] sel  , output reg y);
@@ -902,11 +922,11 @@ endmodule
 
 The above code represents a 4:1 Mux. The same can be verified by synthesizing this design.
 
-Below figure shows the RTL simulation.
+Below figure shows the `RTL simulation`.
 
 ![image](https://user-images.githubusercontent.com/67214592/183260518-a9110eb9-f4f4-401f-9a0a-0e689fef0671.png)
 
-The figure below shows synthesized output of the above code.
+The figure below shows `synthesized output` of the above code.
 
 ![mux_generator_synth](https://user-images.githubusercontent.com/67214592/183264654-15a77aeb-cbe9-4aa6-a9cc-4618241b02ec.PNG)
 
@@ -915,6 +935,8 @@ The figure below shows synthesized output of the above code.
 *for* generate statements are used to instantiate a hardware module for a large number of instantiations. Ex: to instantiate an AND gate 100 times. They should never be used inside an always block.
 
 An example of using for generate statements is given below. We use generate statements and for loop to implement an 8-bit Ripple Carry Adder which uses multiple instantiations of Full Adder block.
+
+`verilog code`
 
 ```
 module rca (input [7:0] num1 , input [7:0] num2 , output [8:0] sum);
@@ -937,7 +959,7 @@ endmodule
 
 ```
 		
-The following figure shows the output of simulation. 
+The following figure shows the output of `RTL simulation`. 
 
 ![image](https://user-images.githubusercontent.com/67214592/183260651-a3f2f096-9f9b-4f51-9cf4-2fcd06fea458.png)
 		
