@@ -819,6 +819,10 @@ Let us try to understand this by taking an example of a complete case statement 
 
 **Example1-incomp_case:**
 
+`Circuit Diagram`
+
+![image](https://user-images.githubusercontent.com/67214592/183698824-91bc920a-474a-4ea4-b9d9-d4e20bf6c139.png)
+
 Given below is the `verilog code` of an incomplete case statement example which will result in an inferred latch.
 
 ```
@@ -845,7 +849,11 @@ It can be seen in the `synthesis output`, D-latch is present at the output.
 
 **Example2-comp_case:**
 
-consider a following `verilog code`.
+`Circuit Diagram`
+
+![image](https://user-images.githubusercontent.com/67214592/183699396-28db1fbb-5425-4b03-a674-467903fe14c9.png)
+
+Consider a following `verilog code`.
 
 ```
 module comp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
@@ -870,7 +878,11 @@ And also it can be observed from the `synthesized output`, no D latch is inferre
 
 **Example3-partial_case_assign:**
 
-consider a following `verilog code`.
+`Circuit Diagram`
+
+![image](https://user-images.githubusercontent.com/67214592/183700139-1cab0a5c-8cbf-4f93-af89-dedddb2d3e48.png)
+
+Consider a following `verilog code`.
 
 ```
 module partial_case_assign (input i0 , input i1 , input i2 , input [1:0] sel, output reg x, output reg y);
