@@ -45,11 +45,13 @@
 
 ## **1. Introduction to Verilog RTL Design and Synthesis**
 
-Register Transfer Logic (RTL) is used to capture logic in design phase of the integrated circuit design cycle. A logic synthesis tool converts an RTL description written in Hardware Description Language (Verilog/VHDL) to a gate-level description of the circuit. Placement and routing tools use the synthesis outputs to generate a physical layout. The following figure shows the flow of RTL synthesis.
+Register Transfer Logic (RTL) is used to capture logic in design phase of the integrated circuit design cycle. A logic synthesis tool converts an RTL description written in Hardware Description Language (Verilog/VHDL) to a gate-level description of the circuit. Placement and routing tools use the synthesis outputs to generate a physical layout.
 
 ### **i. SKY130 RTL Introduction to Open-source Iverilog Simulator**   
 Icarus Verilog(iverilog) is a Verilog simulator used to verify functional description of a design. It functions as a compiler, converting Verilog source code into a target format. VCD (Value Change Dump) is a standard dump format for Verilog that dumps the status of the design as it simulates. The iverilog simulator takes a verilog design file and its test bench as inputs. The following figure illustrates the inputs and outputs of iverilog simulator.
+
 ![image](https://user-images.githubusercontent.com/67214592/183249132-c009f5ee-4e72-48af-b6c3-8b6ec0cfcbec.png)
+
 #### **a. Design**  
 * Design is the actual verilog code or set of verilog codes, which has the intended functionality to meet with the required specifications. 
 #### **b. Testbecnh**
@@ -59,7 +61,9 @@ Icarus Verilog(iverilog) is a Verilog simulator used to verify functional descri
 * Iverilog simulator is the tool used for simulating the design.  
 * Simulator looks for the changes on input signal.
 * Upon every changes in input, the output is evaluated. 
+
 ![image](https://user-images.githubusercontent.com/67214592/183249220-b1a3dd1d-743e-4b75-bb23-4f24bb77a3ef.png)
+
 * Design will be instantiated in the testbench, then their will be a mechanism to apply the stimulus to the design.
 * GTKWave is a VCD waveform viewer based on the GTK library. This viewer support VCD and LXT formats for signal dumps.  
 
@@ -111,11 +115,13 @@ To Verify the Synthesis:
 
 ### **iii. Lab Example using iverilog, gtkwave and yosys**
 
+**Commands to invoke iverilog
+
+![steps_good_mux](https://user-images.githubusercontent.com/67214592/183285867-a31fdc0f-976f-4b42-9529-f5833f29832b.PNG)
+
 **iverilog - good_mux.v**
 
 ![good_mux_v](https://user-images.githubusercontent.com/67214592/183285672-b0172a43-cbbb-476f-93cf-1dcf8461f4d1.PNG)
-
-![steps_good_mux](https://user-images.githubusercontent.com/67214592/183285867-a31fdc0f-976f-4b42-9529-f5833f29832b.PNG)
 
 **RTL Simulation**
 
@@ -162,14 +168,14 @@ The above clip from .lib files shows the information of Timing, power area and o
 
 ### **ii. Heirarchial vs flat synthesis**
 
-**Hierarchial Synthesis**
+- **Hierarchial Synthesis**
 
-Submodule level synthesis
+   Submodule level synthesis
 
 In a design with multiple instances we can use this to synthesize once and replicate it many times and stich together to obtain the netlist file.
 On the other hand big designs can be broken down synthesised and merged later into a single netlist.
 
-Verilog code of Half Adder is shown below. It consists of a heirarchial structure.
+`Verilog code` of Half Adder is shown below. It consists of a heirarchial structure.
 
 <pre><code>
 module sub_module2 (input a, input b, output y);
@@ -189,7 +195,7 @@ The following fig shows the heirarchy of the multiple modules.
 
 ![image](https://user-images.githubusercontent.com/67214592/183256658-f052a2e7-60a3-4fd1-a11b-9673eab81f60.png)
 
-**Flatten Synthesis**
+- **Flatten Synthesis**
 
 `flatten` is the command to flatten out the heirarchy and this is the resultant structure after removing heirarchy of the modules.
 
@@ -260,12 +266,12 @@ endmodule</code></pre>
 
 The `verilog code` is given by the following and it is importnant to observe the inputs which are present inside always statement.
 
-<pre><code>module dff\_asyncres\_syncres ( input clk , input async\_reset , input sync\_reset , input d , output reg q );
-always @ (posedge clk , posedge async\_reset)
+<pre><code>module dff_asyncres_syncres ( input clk , input async_reset , input sync_reset , input d , output reg q );
+always @ (posedge clk , posedge async_reset)
 begin
-   if(async\_reset)
+   if(async_reset)
       q <= 1'b0;
-  else if (sync\_reset)
+  else if (sync_reset)
       q <= 1'b0;
   else	
       q <= d;
@@ -278,7 +284,7 @@ endmodule</code></pre>
 
 `Synthesis`: The following figure shows schematic of the design.
 
-![dff_asynres_syncres_synth](https://user-images.githubusercontent.com/67214592/183264283-0d368ec1-ad13-4c21-b6e1-c67bcb385b47.PNG)
+![image](https://user-images.githubusercontent.com/67214592/183670553-d38f9f36-4f14-4cb2-85c4-1dcd7592754e.png)
 
 #### **d. Optimization**
 
