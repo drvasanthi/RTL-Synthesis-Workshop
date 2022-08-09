@@ -115,7 +115,7 @@ To Verify the Synthesis:
 
 ### **iii. Lab Example using iverilog, gtkwave and yosys**
 
-**Commands to invoke iverilog
+**Commands to invoke iverilog**
 
 ![steps_good_mux](https://user-images.githubusercontent.com/67214592/183285867-a31fdc0f-976f-4b42-9529-f5833f29832b.PNG)
 
